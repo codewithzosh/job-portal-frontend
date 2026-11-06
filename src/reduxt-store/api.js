@@ -1,11 +1,11 @@
 import axios from "axios";
 
-// const API_BASE_URL = "http://localhost:5000";
+const API_BASE_URL = "http://localhost:5000";
 
-const API_URL="https://api.codewithzosh.tech"
+// const API_URL="https://api.codewithzosh.tech"
 
 const api = axios.create({
-  baseURL: API_URL,
+  baseURL: API_BASE_URL,
   headers: {
     "Content-Type": "application/json",
   },

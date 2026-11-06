@@ -28,14 +28,11 @@ const ApplyJob = () => {
   const { currentJob: job } = useSelector((store) => store.job);
   const { id } = useParams();
 
-
-   useEffect(()=>{
-  
-      if(id){
-        dispatch(fetchJobById(id))
-      }
-  
-    },[id])
+  useEffect(() => {
+    if (id) {
+      dispatch(fetchJobById(id));
+    }
+  }, [id, dispatch]);
 
   const renderStep = () => {
     switch (currentStep) {

@@ -1,4 +1,3 @@
-import React from 'react'
 import {
   Dialog,
   DialogContent,
@@ -6,50 +5,44 @@ import {
   DialogTitle,
 } from "../../../components/ui/dialog";
 import { useState } from "react";
-import { useEffect } from "react";
 import { Label } from "../../../components/ui/label";
 import { Input } from "../../../components/ui/input";
 
 import { Button } from "../../../components/ui/button";
-import { useDispatch } from 'react-redux';
-import { createTag, updateTag } from '../../../reduxt-store/jobMeta/jobMetaThunk';
+import { useDispatch } from "react-redux";
+import {
+  createTag,
+  updateTag,
+} from "../../../reduxt-store/jobMeta/jobMetaThunk";
 
-const TagFormDialog = ({
-      isEdit,
-  open,
-  onClose,
-  onSubmit,
-  initialData,
-}) => {
-  const dispatch=useDispatch()
+const TagFormDialog = (props) => {
+  return props.open ? (
+    <TagFormDialogContent key={props.initialData?.id ?? "new"} {...props} />
+  ) : null;
+};
 
-     const [form, setForm] = useState({
-        name: "",
-        category: "",
-      });
-    
-      const handleSubmit = (e) => {
-        e.preventDefault();
+const TagFormDialogContent = ({ isEdit, open, onClose, initialData }) => {
+  const dispatch = useDispatch();
 
-        if(initialData){
-          dispatch(updateTag({
-            id:initialData.id,
-            ...form
-          }))
-        }else dispatch(createTag(form))
-        console.log("form data", form);
-      };
-    
-      useEffect(() => {
-        if (open) {
-          setForm({
-            name: initialData?.name ?? "",
-            category: initialData?.category ?? ""
-       
-          });
-        }
-        console.log("intialdata ",initialData?.category)
-      }, [open, initialData]);
+  const [form, setForm] = useState({
+    name: initialData?.name ?? "",
+    category: initialData?.category ?? "",
+  });
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    if (initialData) {
+      dispatch(
+        updateTag({
+          id: initialData.id,
+          ...form,
+        }),
+      );
+    } else dispatch(createTag(form));
+    console.log("form data", form);
+  };
+
   return (
     <Dialog open={open} onOpenChange={(o) => !o && onClose()}>
       <DialogContent>
@@ -70,10 +63,6 @@ const TagFormDialog = ({
             />
           </div>
 
-          
-
-         
-
           <div className="flex gap-2">
             <Button
               type="button"
@@ -90,7 +79,7 @@ const TagFormDialog = ({
         </form>
       </DialogContent>
     </Dialog>
-  )
-}
+  );
+};
 
-export default TagFormDialog
+export default TagFormDialog;

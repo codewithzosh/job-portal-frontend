@@ -1,9 +1,7 @@
-import React from "react";
 import CopyFromMenu from "./shared/CopyFromMenu";
 import { resumes } from "../Resumes/resumeData";
 import AddButton from "./shared/AddButton";
 import { useState } from "react";
-import { workExperienceData } from "./shared/workExperrrrienceData";
 import SectionCard from "./shared/SectionCard";
 import SectionDialog from "./shared/SectionDialog";
 import FRow from "./shared/FRow";
@@ -11,7 +9,6 @@ import { Input } from "../../../components/ui/input";
 import { Field } from "../../../components/ui/field";
 import { Checkbox } from "../../../components/ui/checkbox";
 import { Label } from "../../../components/ui/label";
-import { Button } from "../../../components/ui/button";
 import { Textarea } from "../../../components/ui/textarea";
 import TagInput from "./shared/TagInput";
 import DeleteConfirm from "./shared/DeleteConfirm";
@@ -21,7 +18,6 @@ import {
   deleteProject,
   updateProject,
 } from "../../../reduxt-store/resume/resumeThunk";
-import { useEffect } from "react";
 
 const projectData = {
   title: "",
@@ -44,6 +40,7 @@ const ProjectSection = ({ resumeId, resume }) => {
 
   const openEdit = (item) => {
     setEdit(item);
+    setForm(item);
     setOpen(true);
   };
 
@@ -70,12 +67,6 @@ const ProjectSection = ({ resumeId, resume }) => {
     dispatch(deleteProject({ resumeId, projectId: delItem.id }));
     console.log("deleting", delItem);
   };
-
-  useEffect(() => {
-    if (edit) {
-      setForm(edit);
-    }
-  }, [edit]);
 
   return (
     <div className="space-y-4">

@@ -1,4 +1,3 @@
-import React from "react";
 import { Card, CardContent } from "../../../components/ui/card";
 import { CheckCircle2 } from "lucide-react";
 import { Bookmark } from "lucide-react";
@@ -10,27 +9,25 @@ import { Clock } from "lucide-react";
 import { Badge } from "../../../components/ui/badge";
 import { Separator } from "../../../components/ui/separator";
 import { Users } from "lucide-react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { saveJob } from "../../../reduxt-store/saveJobs/saveJobThunk";
 
 const hasApplied = false;
 
 const JobCard = ({ job }) => {
-  const navigate=useNavigate()
+  const navigate = useNavigate();
 
   const location = [job.city, job.state, job.country]
     .filter(Boolean)
     .join(", ");
 
-
-    const dispatch=useDispatch()
-    const handleSavedJob=()=>{
-      dispatch(saveJob({jobId:job.id}))
-    }
+  const dispatch = useDispatch();
+  const handleSavedJob = () => {
+    dispatch(saveJob({ jobId: job.id }));
+  };
   return (
-  
-    <Card >
+    <Card>
       <CardContent className={"p-5"}>
         <div className="flex items-start gap-4">
           {/* company logo */}
@@ -126,7 +123,9 @@ const JobCard = ({ job }) => {
                     Applied
                   </Button>
                 ) : (
-                  <Button onClick={()=>navigate(`/jobs/${job.id}`)} size="sm">Quick Apply</Button>
+                  <Button onClick={() => navigate(`/jobs/${job.id}`)} size="sm">
+                    Quick Apply
+                  </Button>
                 )}
               </div>
             </>
@@ -134,7 +133,6 @@ const JobCard = ({ job }) => {
         </div>
       </CardContent>
     </Card>
-    
   );
 };
 

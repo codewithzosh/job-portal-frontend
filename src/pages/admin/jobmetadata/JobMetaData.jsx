@@ -1,7 +1,6 @@
 import { Zap } from "lucide-react";
 import { Tag } from "lucide-react";
 import { FolderTree } from "lucide-react";
-import React from "react";
 
 import {
   Tabs,
@@ -15,10 +14,14 @@ import TagTab from "./TagTab";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
-import { fetchCategories, fetchSkills, fetchTags } from "../../../reduxt-store/jobMeta/jobMetaThunk";
+import {
+  fetchCategories,
+  fetchSkills,
+  fetchTags,
+} from "../../../reduxt-store/jobMeta/jobMetaThunk";
 
 const JobMetaData = () => {
-  const { categories,skills,tags } = useSelector((state) => state.jobMeta);
+  const { categories, skills, tags } = useSelector((state) => state.jobMeta);
   const dispatch = useDispatch();
   const jobMetaData = [
     {
@@ -43,9 +46,9 @@ const JobMetaData = () => {
 
   useEffect(() => {
     dispatch(fetchCategories());
-    dispatch(fetchSkills())
-    dispatch(fetchTags())
-  }, []);
+    dispatch(fetchSkills());
+    dispatch(fetchTags());
+  }, [dispatch]);
 
   return (
     <div className="space-y-6">
@@ -59,7 +62,7 @@ const JobMetaData = () => {
       </section>
 
       <section className="flex flex-wrap gap-3">
-        {jobMetaData.map((item, index) => {
+        {jobMetaData.map((item) => {
           const Icon = item.icon;
           const color = item.color;
           return (

@@ -1,6 +1,5 @@
 import { Target } from "lucide-react";
 import { Briefcase } from "lucide-react";
-import React from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import {
   DropdownMenu,
@@ -21,24 +20,21 @@ import { User } from "lucide-react";
 import { FileText } from "lucide-react";
 import { Bookmark } from "lucide-react";
 import { ScrollText } from "lucide-react";
-import { Settings } from "lucide-react";
 import { LogOut } from "lucide-react";
 import { useSelector } from "react-redux";
 import { logout } from "../../../reduxt-store/user/userSlice";
 import { useDispatch } from "react-redux";
 
-
-
 const Navbar = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const {user}= useSelector((state) => state.auth);
-  const dispatch=useDispatch()
+  const { user } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
 
-  const handleLogout=()=>{
-    dispatch(logout())
-    console.log("-----------")
-  }
+  const handleLogout = () => {
+    dispatch(logout());
+    console.log("-----------");
+  };
 
   const isActive = (path) => location.pathname === path;
   return (
@@ -103,20 +99,18 @@ const Navbar = () => {
                     {" "}
                     <FileText className="mr-2 h-4 w-4" /> My Applications
                   </DropdownMenuItem>
-                   <DropdownMenuItem onClick={() => navigate("/saved-jobs")}>
+                  <DropdownMenuItem onClick={() => navigate("/saved-jobs")}>
                     {" "}
                     <Bookmark className="mr-2 h-4 w-4" /> Saved Jobs
                   </DropdownMenuItem>
-                   <DropdownMenuItem onClick={() => navigate("/resumes")}>
+                  <DropdownMenuItem onClick={() => navigate("/resumes")}>
                     {" "}
                     <ScrollText className="mr-2 h-4 w-4" /> My Resumes
                   </DropdownMenuItem>
-                   
-                  
                 </DropdownMenuGroup>
                 <DropdownMenuSeparator />
                 <DropdownMenuGroup>
-                   <DropdownMenuItem onClick={handleLogout}>
+                  <DropdownMenuItem onClick={handleLogout}>
                     {" "}
                     <LogOut className="mr-2 h-4 w-4" /> Logout
                   </DropdownMenuItem>

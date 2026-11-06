@@ -74,11 +74,10 @@ const applicationSlice = createSlice({
       .addCase(updateApplicationStatus.fulfilled, (s, { payload }) => {
         s.isActionLoading = false;
         s.currentApplication = payload;
-        const updated=replaceInList(s.applications, payload);
-        s.applications=updated
+        const updated = replaceInList(s.applications, payload);
+        s.applications = updated;
 
-        console.log("updated",updated)
-
+        console.log("updated", updated);
       })
       .addCase(updateApplicationStatus.rejected, (s, { payload }) => {
         s.isActionLoading = false;

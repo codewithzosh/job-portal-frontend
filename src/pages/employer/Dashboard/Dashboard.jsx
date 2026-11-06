@@ -1,5 +1,3 @@
-import React from "react";
-import { jobs } from "../../user/jobs/dummyJobs";
 import { Briefcase } from "lucide-react";
 import { TrendingUp } from "lucide-react";
 import { FileText } from "lucide-react";
@@ -23,13 +21,15 @@ import { fetchMyJobs } from "../../../reduxt-store/job/jobThunk";
 import { useSelector } from "react-redux";
 
 const Dashboard = () => {
-  const dispatch=useDispatch()
-   const { myJobs: jobs } = useSelector((state) => state.job);
+  const dispatch = useDispatch();
+  const { myJobs: jobs } = useSelector((state) => state.job);
   const { myCompany } = useSelector((state) => state.company);
-const { applications } = useSelector((store) => store.application);
-  const activeJobs=[...jobs].filter((job)=>job.status=="OPEN")
-  const shortListed=[...applications].filter((app)=>app.status=="SHORTLISTED")
- 
+  const { applications } = useSelector((store) => store.application);
+  const activeJobs = [...jobs].filter((job) => job.status == "OPEN");
+  const shortListed = [...applications].filter(
+    (app) => app.status == "SHORTLISTED",
+  );
+
   const stats = [
     {
       title: "Total Jobs Posted",
@@ -53,16 +53,16 @@ const { applications } = useSelector((store) => store.application);
     },
   ];
 
-    useEffect(() => {
-      dispatch(fetchMyCompany());
-    }, []);
+  useEffect(() => {
+    dispatch(fetchMyCompany());
+  }, [dispatch]);
 
-      useEffect(() => {
-      if (myCompany) {
-        dispatch(fetchMyJobs(myCompany?.id));
-      }
-    }, [myCompany]);
-    
+  useEffect(() => {
+    if (myCompany) {
+      dispatch(fetchMyJobs(myCompany?.id));
+    }
+  }, [myCompany, dispatch]);
+
   return (
     <div className="p-6 space-y-6">
       {/* header */}
@@ -141,14 +141,16 @@ const { applications } = useSelector((store) => store.application);
           </div>
           <div className="mt-4 pt-4 border-t border-primary/20">
             <Link to={"/employer/ai-screening"}>
-              <Button className="border-primary/30 hover:bg-primary/10">View AI Dashboard</Button>
+              <Button className="border-primary/30 hover:bg-primary/10">
+                View AI Dashboard
+              </Button>
             </Link>
           </div>
         </CardContent>
       </Card>
 
       {/* Recent Application */}
-      <RecentApplicationTable/>
+      <RecentApplicationTable />
     </div>
   );
 };

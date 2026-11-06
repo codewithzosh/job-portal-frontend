@@ -45,7 +45,7 @@ function App() {
       // If the access token exists, you can dispatch an action to fetch the current user
       dispatch(fetchCurrentUser());
     }
-  }, []);
+  }, [dispatch]);
 
   console.log("isAuthenticated ", isAuthenticated, user);
   return (
@@ -72,8 +72,14 @@ function App() {
               <Route path="/employer/dashboard" element={<Dashboard />} />
               <Route path="/employer/jobs" element={<EmployerJobs />} />
               <Route path="/employer/jobs/create" element={<CreateJob />} />
-              <Route path="/employer/jobs/:jobId/edit" element={<CreateJob isEdit={true} />} />
-              <Route path="/employer/applications" element={<EmployerApplications />} />
+              <Route
+                path="/employer/jobs/:jobId/edit"
+                element={<CreateJob isEdit={true} />}
+              />
+              <Route
+                path="/employer/applications"
+                element={<EmployerApplications />}
+              />
 
               <Route path="/employer/ai-screening" element={<AIScreening />} />
               <Route path="/employer/company" element={<CompanyProfile />} />

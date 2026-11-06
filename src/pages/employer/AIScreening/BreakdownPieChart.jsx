@@ -1,4 +1,3 @@
-import React from "react";
 import { STATUS_CFG, STATUS_ORDER } from "./config";
 import { Cell, Label, Pie, PieChart, Tooltip } from "recharts";
 
@@ -56,10 +55,10 @@ const BreakdownPieChart = ({ dist, total, size = 180 }) => {
 
             return (
               <text textAnchor="middle">
-                <tspan x={cx} y={cy} fontSize={20} fontWeight={"700"} >
+                <tspan x={cx} y={cy} fontSize={20} fontWeight={"700"}>
                   {total}
                 </tspan>
-                <tspan x={cx} y={cy + 10} fontSize={10}  fill="#94a3b8">
+                <tspan x={cx} y={cy + 10} fontSize={10} fill="#94a3b8">
                   total
                 </tspan>
               </text>

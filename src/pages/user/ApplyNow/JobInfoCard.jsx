@@ -1,15 +1,13 @@
-import React from "react";
-
 import { Card, CardContent } from "@/components/ui/card";
 import { CheckCircle2 } from "lucide-react";
 
-
 const JobInfoCard = ({ job }) => {
-  
-  if(!job){
-    return <div>
-      <h1>Job Not Exist</h1>
-    </div>
+  if (!job) {
+    return (
+      <div>
+        <h1>Job Not Exist</h1>
+      </div>
+    );
   }
   return (
     <Card>
@@ -50,9 +48,7 @@ const JobInfoCard = ({ job }) => {
                   {job.company?.tagline}
                 </p>
               </div>
-              
             </div>
-
           </div>
         </div>
       </CardContent>

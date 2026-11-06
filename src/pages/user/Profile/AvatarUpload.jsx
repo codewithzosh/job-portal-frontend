@@ -1,7 +1,6 @@
 import { Camera } from "lucide-react";
 import { ImagePlus } from "lucide-react";
 import { Loader2 } from "lucide-react";
-import React from "react";
 import { useRef } from "react";
 
 const AvatarUpload = ({ user, uploading, onFileSelect }) => {
@@ -10,11 +9,11 @@ const AvatarUpload = ({ user, uploading, onFileSelect }) => {
 
   const currentImage = user?.profileImage || null;
 
-  const handleChange=(e)=>{
-    const file=e.target.files?.[0]
-    if(file) onFileSelect(file)
-    e.target.value=null
-  }
+  const handleChange = (e) => {
+    const file = e.target.files?.[0];
+    if (file) onFileSelect(file);
+    e.target.value = null;
+  };
   return (
     <div className="relative group shrink-0">
       <input
@@ -25,9 +24,16 @@ const AvatarUpload = ({ user, uploading, onFileSelect }) => {
         onChange={handleChange}
       />
 
-      <button onClick={() => fileRef.current?.click()} className="relative h-24 w-24 rounded-2xl border-4 border-white bg-primary shadow-lg overflow-hidden cursor-pointer disabled:cursor-not-allowed focus:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2">
+      <button
+        onClick={() => fileRef.current?.click()}
+        className="relative h-24 w-24 rounded-2xl border-4 border-white bg-primary shadow-lg overflow-hidden cursor-pointer disabled:cursor-not-allowed focus:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2"
+      >
         {currentImage ? (
-          <img src={currentImage} alt="Avatar" className="h-full w-full object-cover" />
+          <img
+            src={currentImage}
+            alt="Avatar"
+            className="h-full w-full object-cover"
+          />
         ) : (
           <span className="text-white text-2xl font-bold flex items-center justify-center h-full w-full">
             {userName}{" "}

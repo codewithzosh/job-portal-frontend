@@ -1,4 +1,3 @@
-import React from "react";
 import { Card, CardContent } from "../../../components/ui/card";
 import { cn } from "../../../lib/utils";
 
@@ -62,10 +61,12 @@ const StatsCard = ({
           </div>
         </div>
       </CardContent>
-      <div className={cn(
+      <div
+        className={cn(
           "absolute -right-6 -top-6 h-28 w-28 rounded-full opacity-[0.06]",
-          colors.glow
-        )}/>
+          colors.glow,
+        )}
+      />
     </Card>
   );
 };

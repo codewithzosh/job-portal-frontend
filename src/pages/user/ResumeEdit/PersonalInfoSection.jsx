@@ -1,4 +1,3 @@
-import React from "react";
 import CopyFromMenu from "./shared/CopyFromMenu";
 import { resumes } from "../Resumes/resumeData";
 import { User } from "lucide-react";
@@ -13,85 +12,58 @@ import { Globe } from "lucide-react";
 import { Button } from "../../../components/ui/button";
 import { Check } from "lucide-react";
 import { useDispatch } from "react-redux";
-import { useEffect } from "react";
 import { updatePersonalInfo } from "../../../reduxt-store/resume/resumeThunk";
 import { uploadToCloudinary } from "../../../utils/uploadToCloudinary";
 
-const PersonalInfoSection = ({resumeId,resume}) => {
-  const pi=resume?.personalInfo??{}
-  const dispatch=useDispatch()
-  const [form, setForm] = useState({
-    firstName: "",
-    lastName: "",
-    headline: "",
-    email: "",
-    phone: "",
-    city: "",
-    country: "",
-    linkedinUrl: "",
-    githubUrl: "",
-    portfolioUrl: "",
-    websiteUrl: "",
-    profileImage:
-      "https://res.cloudinary.com/dcpesbd8q/image/upload/v1782652019/job-portal/rugeudpc6hygdcvtc1ux.png",
-  });
+const PersonalInfoSection = ({ resumeId, resume }) => {
+  const pi = resume?.personalInfo ?? {};
+  const dispatch = useDispatch();
+  const [draft, setDraft] = useState({});
+  const form = {
+    firstName: pi.firstName ?? "",
+    lastName: pi.lastName ?? "",
+    headline: pi.headline ?? "",
+    email: pi.email ?? "",
+    phone: pi.phone ?? "",
+    city: pi.city ?? "",
+    country: pi.country ?? "",
+    linkedinUrl: pi.linkedinUrl ?? "",
+    githubUrl: pi.githubUrl ?? "",
+    portfolioUrl: pi.portfolioUrl ?? "",
+    websiteUrl: pi.websiteUrl ?? "",
+    profileImage: pi.profileImage ?? "",
+    ...draft,
+  };
   const [isUploadingImage, setIsUploadingImage] = useState(false);
   const fileInputRef = useRef(null);
 
   const handleImageChange = async (event) => {
-    const file = event.target.files?.[0]
+    const file = event.target.files?.[0];
 
-    if(!file){
-      console.log("file not selected!")
-      return
+    if (!file) {
+      console.log("file not selected!");
+      return;
     }
     try {
-      setIsUploadingImage(true)
-      const url=await uploadToCloudinary(file)
-      setForm((prev)=>({...prev,profileImage:url}))
-      
-      
+      setIsUploadingImage(true);
+      const url = await uploadToCloudinary(file);
+      setDraft((prev) => ({ ...prev, profileImage: url }));
     } catch (error) {
-      console.log("image uploading error",error)
-    }finally{
-      setIsUploadingImage(false)
+      console.log("image uploading error", error);
+    } finally {
+      setIsUploadingImage(false);
     }
     console.log(event.target.value);
   };
-  const f = (k) => (e) => setForm({ ...form, [k]: e.target.value });
+  const f = (k) => (e) =>
+    setDraft((prev) => ({ ...prev, [k]: e.target.value }));
 
+  const handleSave = () => {
+    dispatch(updatePersonalInfo({ resumeId, data: form }));
+    console.log("form ", form);
+  };
 
-  const handleSave=()=>{
-    dispatch(updatePersonalInfo({resumeId, data:form}))
-    console.log("form ",form)
-  }
-
-  useEffect(()=>{
-
-    if(pi){
-      setForm({
-        firstName:pi.firstName??"",
-         lastName: pi.lastName ?? "",
-        headline: pi.headline ?? "",
-        email: pi.email ?? "",
-        phone: pi.phone ?? "",
-        city: pi.city ?? "",
-        country: pi.country ?? "",
-        linkedinUrl: pi.linkedinUrl ?? "",
-        githubUrl: pi.githubUrl ?? "",
-        portfolioUrl: pi.portfolioUrl ?? "",
-        websiteUrl: pi.websiteUrl ?? "",
-        profileImage: pi.profileImage ?? "",
-      })
-    }
-
-  },[resume])
-
-  console.log("current resume ------- ", resume)
-
-  
-
-
+  console.log("current resume ------- ", resume);
 
   return (
     <div className="space-y-4">
@@ -154,7 +126,7 @@ const PersonalInfoSection = ({resumeId,resume}) => {
         />
       </FRow>
 
-       <div className="grid grid-cols-2 gap-3">
+      <div className="grid grid-cols-2 gap-3">
         <FRow label="Email">
           <Input type="email" value={form.email} onChange={f("email")} />
         </FRow>
@@ -183,25 +155,21 @@ const PersonalInfoSection = ({resumeId,resume}) => {
       </p>
 
       <FRow label="LinkedIn URL">
-    
-          <Input
-            value={form.linkedinUrl}
-            onChange={f("linkedinUrl")}
-      
-            placeholder="https://linkedin.com/in/…"
-          />
-        
+        <Input
+          value={form.linkedinUrl}
+          onChange={f("linkedinUrl")}
+
+          placeholder="https://linkedin.com/in/…"
+        />
       </FRow>
 
       <FRow label="GitHub URL">
-    
-          <Input
-            value={form.githubUrl}
-            onChange={f("githubUrl")}
-      
-            placeholder="https://github.com/…"
-          />
-        
+        <Input
+          value={form.githubUrl}
+          onChange={f("githubUrl")}
+
+          placeholder="https://github.com/…"
+        />
       </FRow>
 
       <FRow label="Portfolio URL">
@@ -216,7 +184,7 @@ const PersonalInfoSection = ({resumeId,resume}) => {
         </div>
       </FRow>
 
-       <FRow label="Website URL">
+      <FRow label="Website URL">
         <div className="relative">
           <Globe className="absolute left-3 top-2.5 h-4 w-4 text-slate-400" />
           <Input
@@ -226,7 +194,9 @@ const PersonalInfoSection = ({resumeId,resume}) => {
           />
         </div>
       </FRow>
-      <Button onClick={handleSave} className={"w-full"}><Check/> Save Personal Info</Button>
+      <Button onClick={handleSave} className={"w-full"}>
+        <Check /> Save Personal Info
+      </Button>
     </div>
   );
 };

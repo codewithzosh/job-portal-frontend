@@ -1,4 +1,3 @@
-import React from "react";
 import { Button } from "../../../components/ui/button";
 import { ArrowLeft } from "lucide-react";
 import {
@@ -19,40 +18,40 @@ import { Share } from "lucide-react";
 import { Separator } from "../../../components/ui/separator";
 import { Users } from "lucide-react";
 import { Eye } from "lucide-react";
-import {  useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { fetchJobById } from "../../../reduxt-store/job/jobThunk";
 import { useSelector } from "react-redux";
 
 const JobDetails = () => {
-  
-  const {currentJob:job}=useSelector(state=>state.job)
-  
-  const navigate=useNavigate()
-  const {id}=useParams()
-  const dispatch=useDispatch()
+  const { currentJob: job } = useSelector((state) => state.job);
 
+  const navigate = useNavigate();
+  const { id } = useParams();
+  const dispatch = useDispatch();
 
-  useEffect(()=>{
-
-    if(id){
-      dispatch(fetchJobById(id))
+  useEffect(() => {
+    if (id) {
+      dispatch(fetchJobById(id));
     }
+  }, [id, dispatch]);
 
-  },[id])
-  
-if(job==null){
-  return <div className="flex items-center justify-between min h-screen">
-    <h1 className="font-bold text-4xl">Job Not Found With Given Job Id - {id}</h1>
-  </div>
-}
-  
-const location = [job?.city, job?.state, job?.country];
+  if (job == null) {
+    return (
+      <div className="flex items-center justify-between min h-screen">
+        <h1 className="font-bold text-4xl">
+          Job Not Found With Given Job Id - {id}
+        </h1>
+      </div>
+    );
+  }
+
+  const location = [job?.city, job?.state, job?.country];
 
   return (
     <div className="p-8 min-w-7xl max-w-7xl max-auto space-y-3">
-      <Button onClick={()=>navigate(-1)} variant="ghost">
+      <Button onClick={() => navigate(-1)} variant="ghost">
         <ArrowLeft />
         Back To Jobs
       </Button>
@@ -197,7 +196,10 @@ const location = [job?.city, job?.state, job?.country];
         <div className="">
           <Card>
             <CardContent className={"space-y-6"}>
-              <Button onClick={() => navigate(`/apply/${job.id}`)} className={"w-full py-5"}>
+              <Button
+                onClick={() => navigate(`/apply/${job.id}`)}
+                className={"w-full py-5"}
+              >
                 Apply Now
               </Button>
               <div className="flex gap-2 justify-between">
@@ -254,10 +256,10 @@ const location = [job?.city, job?.state, job?.country];
 
               <div className="flex gap-4 text-xs text-slate-500">
                 <span className="flex items-center gap-1">
-                  <Users className="h-3.5 w-3.5"/> 20 applicants
+                  <Users className="h-3.5 w-3.5" /> 20 applicants
                 </span>
                 <span className="flex items-center gap-1">
-                  <Eye className="h-3.5 w-3.5"/> 150 views
+                  <Eye className="h-3.5 w-3.5" /> 150 views
                 </span>
               </div>
             </CardContent>

@@ -1,4 +1,3 @@
-import React from "react";
 import SatateCard from "../../employer/Applicaton/SatateCard";
 import { useMemo } from "react";
 import { Building2 } from "lucide-react";
@@ -64,7 +63,7 @@ const Companies = () => {
     const suspended = companies.filter((c) => c.status === "SUSPENDED").length;
     const rejected = companies.filter((c) => c.status === "REJECTED").length;
     return { total, pending, active, suspended, rejected };
-  }, [companies]);
+  }, []);
 
   const summaryCards = [
     {
@@ -115,8 +114,8 @@ const Companies = () => {
           />
         ))}
       </section>
-      <CompanyFilter/>
-      <CompanyTable companies={companies}/>
+      <CompanyFilter />
+      <CompanyTable companies={companies} />
     </div>
   );
 };

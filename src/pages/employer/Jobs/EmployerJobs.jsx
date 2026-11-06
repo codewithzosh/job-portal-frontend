@@ -1,5 +1,5 @@
-import { Plus } from "lucide-react";
 import React from "react";
+import { Plus } from "lucide-react";
 import { Button } from "../../../components/ui/button";
 import { useMemo } from "react";
 
@@ -27,11 +27,6 @@ import {
   DropdownMenuTrigger,
 } from "../../../components/ui/dropdown-menu";
 import { MoreHorizontal } from "lucide-react";
-import { Eye } from "lucide-react";
-import { FileText } from "lucide-react";
-import { Sparkles } from "lucide-react";
-import { ScrollText } from "lucide-react";
-import { Star } from "lucide-react";
 import { MapPin } from "lucide-react";
 import { User } from "lucide-react";
 import { Edit2 } from "lucide-react";
@@ -42,7 +37,6 @@ import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import {
   closeJob,
-  fetchJobs,
   fetchMyJobs,
   publishJob,
 } from "../../../reduxt-store/job/jobThunk";
@@ -104,11 +98,11 @@ const EmployerJobs = () => {
     if (myCompany) {
       dispatch(fetchMyJobs(myCompany?.id));
     }
-  }, [myCompany]);
+  }, [myCompany, dispatch]);
 
   useEffect(() => {
     dispatch(fetchMyCompany());
-  }, []);
+  }, [dispatch]);
   return (
     <div className="space-y-6">
       <section className="flex items-start justify-between gap-4">

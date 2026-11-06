@@ -1,6 +1,4 @@
-import React from "react";
 import SatateCard from "../../employer/Applicaton/SatateCard";
-
 import { UsersIcon } from "lucide-react";
 import { UserCheck } from "lucide-react";
 import { Briefcase } from "lucide-react";
@@ -17,23 +15,22 @@ import { useState } from "react";
 
 const AdminUsers = () => {
   const dispatch = useDispatch();
-  const {users} = useSelector(state=>state.adminUser)
-  const [roleFilter,setRoleFilter]=useState("all")
-  const [statusFilter,setStatusFilter]=useState("all")
+  const { users } = useSelector((state) => state.adminUser);
+  const [roleFilter, setRoleFilter] = useState("all");
+  const [statusFilter, setStatusFilter] = useState("all");
 
-  console.log("users",users)
+  console.log("users", users);
 
+  const filtered = useMemo(() => {
+    let list = [...users];
 
-  const filtered=useMemo(()=>{
+    if (roleFilter != "all")
+      list = list.filter((user) => user.role === roleFilter);
+    if (statusFilter != "all")
+      list = list.filter((user) => user.status === statusFilter);
 
-    let list=[...users]
-
-    if(roleFilter!="all") list=list.filter((user)=>user.role===roleFilter)
-    if(statusFilter!="all") list=list.filter((user)=>user.status===statusFilter)
-
-      return list;
-
-  },[users,roleFilter,statusFilter])
+    return list;
+  }, [users, roleFilter, statusFilter]);
 
   const stats = useMemo(() => {
     const total = users.length;
@@ -45,7 +42,7 @@ const AdminUsers = () => {
 
   useEffect(() => {
     dispatch(fetchAllUsers());
-  }, []);
+  }, [dispatch]);
 
   const summaryCards = [
     {

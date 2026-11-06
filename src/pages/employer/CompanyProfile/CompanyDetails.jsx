@@ -1,4 +1,3 @@
-import React from "react";
 import { Label } from "../../../components/ui/label";
 import { Input } from "../../../components/ui/input";
 import { useState } from "react";
@@ -6,14 +5,15 @@ import { Textarea } from "../../../components/ui/textarea";
 import { Button } from "../../../components/ui/button";
 import { Save } from "lucide-react";
 import { useSelector } from "react-redux";
-import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { updateCompany } from "../../../reduxt-store/company/companyThunk";
 
 const CompanyDetails = () => {
   const { myCompany } = useSelector((state) => state.company);
-  const dispatch=useDispatch()
-  const [form, setForm] = useState({
+  const dispatch = useDispatch();
+  const [draft, setDraft] = useState({});
+
+  const form = {
     name: "",
     tagline: "",
     description: "",
@@ -27,31 +27,23 @@ const CompanyDetails = () => {
     companyType: "",
     industryType: "",
     registrationNumber: "",
-  });
-
-  const set = (field) => (e) => {
-    setForm((prev) => ({ ...prev, [field]: e.target.value }));
+    ...myCompany,
+    ...draft,
   };
 
-  useEffect(()=>{
+  const set = (field) => (e) => {
+    setDraft((prev) => ({ ...prev, [field]: e.target.value }));
+  };
 
-    if(myCompany){
-      setForm({
-        ...myCompany
-      })
-    }
-
-  },[myCompany])
-
-  const handleSubmit=(e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
 
-    dispatch(updateCompany({id:myCompany.id,...form}))
+    if (!myCompany?.id) return;
+
+    dispatch(updateCompany({ ...form, id: myCompany.id }));
 
     console.log("Form submitted:", form);
-
-
-}
+  };
 
   return (
     <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
@@ -67,7 +59,7 @@ const CompanyDetails = () => {
                 Company Name <span className="text-red-500">*</span>
               </Label>
               <Input
-                value={form.name}
+                value={form.name ?? ""}
                 onChange={set("name")}
                 placeholder="Enter company name"
                 required
@@ -80,7 +72,7 @@ const CompanyDetails = () => {
                 Tagline
               </Label>
               <Input
-                value={form.tagline}
+                value={form.tagline ?? ""}
                 onChange={set("tagline")}
                 placeholder="Enter company tagline"
                 className="border-slate-200"
@@ -92,7 +84,7 @@ const CompanyDetails = () => {
               Description <span className="text-red-500">*</span>
             </Label>
             <Textarea
-              value={form.description}
+              value={form.description ?? ""}
               onChange={set("description")}
               placeholder="Enter company description"
               required
@@ -100,14 +92,14 @@ const CompanyDetails = () => {
               rows={4}
             />
           </div>
-          
+
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 ">
             <div className="space-y-1.5">
               <Label className="text-xs font-semibold text-slate-600">
                 Logo URL
               </Label>
               <Input
-                value={form.logoUrl}
+                value={form.logoUrl ?? ""}
                 onChange={set("logoUrl")}
                 placeholder="Enter logo URL"
                 className="border-slate-200"
@@ -119,7 +111,7 @@ const CompanyDetails = () => {
                 Cover Image URL
               </Label>
               <Input
-                value={form.coverImageUrl}
+                value={form.coverImageUrl ?? ""}
                 onChange={set("coverImageUrl")}
                 placeholder="Enter cover image URL"
                 className="border-slate-200"
@@ -136,13 +128,13 @@ const CompanyDetails = () => {
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 ">
             <div className="space-y-1.5">
               <Label className="text-xs font-semibold text-slate-600">
-                Company Website 
+                Company Website
               </Label>
               <Input
-                value={form.website}
+                value={form.website ?? ""}
                 onChange={set("website")}
                 placeholder="Enter company website"
-          
+
                 className="border-slate-200"
               />
             </div>
@@ -152,7 +144,7 @@ const CompanyDetails = () => {
                 Company Email
               </Label>
               <Input
-                value={form.email}
+                value={form.email ?? ""}
                 onChange={set("email")}
                 placeholder="Enter company email"
                 className="border-slate-200"
@@ -164,7 +156,7 @@ const CompanyDetails = () => {
                 Phone
               </Label>
               <Input
-                value={form.phone}
+                value={form.phone ?? ""}
                 onChange={set("phone")}
                 placeholder="Enter company phone"
                 className="border-slate-200"
@@ -174,11 +166,12 @@ const CompanyDetails = () => {
         </section>
 
         <div className="flex justify-end pt-2">
-
-            <Button  className="gap-2 bg-primary hover:bg-primary/90" type="submit">
-                <Save className="h-4 w-4" /> Save Changes
-            </Button>
-
+          <Button
+            className="gap-2 bg-primary hover:bg-primary/90"
+            type="submit"
+          >
+            <Save className="h-4 w-4" /> Save Changes
+          </Button>
         </div>
       </form>
     </div>

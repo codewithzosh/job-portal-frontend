@@ -1,5 +1,3 @@
-import React from "react";
-
 import {
   Dialog,
   DialogContent,
@@ -7,7 +5,6 @@ import {
   DialogTitle,
 } from "../../../components/ui/dialog";
 import { useState } from "react";
-import { useEffect } from "react";
 import { Label } from "../../../components/ui/label";
 import { Input } from "../../../components/ui/input";
 import {
@@ -19,7 +16,10 @@ import {
 } from "../../../components/ui/select";
 import { Button } from "../../../components/ui/button";
 import { useDispatch } from "react-redux";
-import { createSkill, fetchSkills, updateSkill } from "../../../reduxt-store/jobMeta/jobMetaThunk";
+import {
+  createSkill,
+  updateSkill,
+} from "../../../reduxt-store/jobMeta/jobMetaThunk";
 
 const SKILL_CATEGORIES = [
   "PROGRAMMING_LANGUAGE",
@@ -33,43 +33,32 @@ const SKILL_CATEGORIES = [
   "LANGUAGE",
   "OTHER",
 ];
-const SkillFormDialog = ({
-  isEdit,
-  open,
-  onClose,
-  onSubmit,
-  initialData,
-  
-}) => {
+const SkillFormDialog = (props) => {
+  return props.open ? (
+    <SkillFormDialogContent key={props.initialData?.id ?? "new"} {...props} />
+  ) : null;
+};
+
+const SkillFormDialogContent = ({ isEdit, open, onClose, initialData }) => {
   const [form, setForm] = useState({
-    name: "",
-    category: "",
+    name: initialData?.name ?? "",
+    category: initialData?.category ?? "",
   });
-  const dispatch=useDispatch()
+  const dispatch = useDispatch();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if(initialData){
-      const data={
-        id:initialData.id,
-        ...form
-      }
-      console.log("skill data", data)
-      dispatch(updateSkill(data))
-    }else dispatch(createSkill(form))
+    if (initialData) {
+      const data = {
+        id: initialData.id,
+        ...form,
+      };
+      console.log("skill data", data);
+      dispatch(updateSkill(data));
+    } else dispatch(createSkill(form));
     console.log("form data", form);
   };
 
-  useEffect(() => {
-    if (open) {
-      setForm({
-        name: initialData?.name ?? "",
-        category: initialData?.category ?? ""
-   
-      });
-    }
-    console.log("intialdata ",initialData?.category)
-  }, [open, initialData]);
   return (
     <Dialog open={open} onOpenChange={(o) => !o && onClose()}>
       <DialogContent>
@@ -90,14 +79,12 @@ const SkillFormDialog = ({
             />
           </div>
 
-          
-
           <div className="space-y-1.5">
             <Label className="text-xs font-semibold text-slate-700">
               Category
             </Label>
             <Select
-            value={form.category}
+              value={form.category}
               onValueChange={(value) =>
                 setForm((f) => ({ ...f, category: value }))
               }
@@ -107,7 +94,7 @@ const SkillFormDialog = ({
               </SelectTrigger>
               <SelectContent>
                 {SKILL_CATEGORIES.map((item) => (
-                  <SelectItem key={item.id} value={item}>
+                  <SelectItem key={item} value={item}>
                     {item}
                   </SelectItem>
                 ))}

@@ -156,5 +156,4 @@ const companySlice = createSlice({
   },
 });
 
-
 export default companySlice.reducer;

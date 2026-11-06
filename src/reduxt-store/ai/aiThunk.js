@@ -178,8 +178,10 @@ export const recommendJobSkills = createAsyncThunk(
   "ai/recommendJobSkills",
   async ({ title, description }, { rejectWithValue }) => {
     try {
-      const { data } = await api.get("/api/ai/job/skills-recommendation", { params: { title, description } })
-     
+      const { data } = await api.get("/api/ai/job/skills-recommendation", {
+        params: { title, description },
+      });
+
       console.log("recommend job skills success ------ ", data);
       return data;
     } catch (err) {

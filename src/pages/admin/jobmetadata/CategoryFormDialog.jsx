@@ -1,4 +1,3 @@
-import React from "react";
 import {
   Dialog,
   DialogContent,
@@ -17,37 +16,42 @@ import {
   SelectValue,
 } from "../../../components/ui/select";
 import { Button } from "../../../components/ui/button";
-import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import {
   createCategory,
   updateCategory,
 } from "../../../reduxt-store/jobMeta/jobMetaThunk";
 
-const CategoryFormDialog = ({
+const CategoryFormDialog = (props) => {
+  return props.open ? (
+    <CategoryFormDialogContent
+      key={props.initialData?.id ?? "new"}
+      {...props}
+    />
+  ) : null;
+};
+
+const CategoryFormDialogContent = ({
   isEdit,
   open,
   onClose,
-  onSubmit,
   initialData,
   rootCategories,
 }) => {
   const dispatch = useDispatch();
   const [form, setForm] = useState({
-    name: "",
-    description: "",
-    iconUrl: "",
-    parentId: "",
+    name: initialData?.name ?? "",
+    description: initialData?.description ?? "",
+    iconUrl: initialData?.iconUrl ?? "",
+    parentId: initialData?.parentId ? String(initialData.parentId) : "",
   });
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-      console.log("initial data handle submit", initialData)
+    console.log("initial data handle submit", initialData);
 
     if (initialData) {
-
-    
       dispatch(
         updateCategory({
           id: initialData.id,
@@ -56,24 +60,13 @@ const CategoryFormDialog = ({
       );
     } else {
       dispatch(createCategory(form));
-       
     }
 
     console.log("form data", form, isEdit);
   };
 
-  console.log("initial data ---- ",initialData)
+  console.log("initial data ---- ", initialData);
 
-  useEffect(() => {
-    if (open) {
-      setForm({
-        name: initialData?.name ?? "",
-        description: initialData?.description ?? "",
-        iconUrl: initialData?.iconUrl ?? "",
-        parentId: initialData?.parentId ? String(initialData.parentId) : "",
-      });
-    }
-  }, [open, initialData]);
   return (
     <Dialog open={open} onOpenChange={(o) => !o && onClose()}>
       <DialogContent>
@@ -127,7 +120,7 @@ const CategoryFormDialog = ({
             <Select
               value={form.parentId}
               onValueChange={(value) =>
-                setForm((f) => ({ ...f, iconUrl: value }))
+                setForm((f) => ({ ...f, parentId: value }))
               }
             >
               <SelectTrigger className="text-sm w-full">

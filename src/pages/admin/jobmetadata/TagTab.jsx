@@ -1,5 +1,4 @@
 import { Search } from "lucide-react";
-import React from "react";
 import { Input } from "../../../components/ui/input";
 import { useState } from "react";
 import { Button } from "../../../components/ui/button";
@@ -78,7 +77,6 @@ const TagTab = ({ tags }) => {
         open={formOpen}
         onClose={() => {
           setFormOpen(false);
-          
         }}
         initialData={editTarget}
         isEdit={!!editTarget}

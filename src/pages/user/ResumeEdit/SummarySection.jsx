@@ -1,4 +1,3 @@
-import React from "react";
 import { Button } from "../../../components/ui/button";
 import CopyFromMenu from "./shared/CopyFromMenu";
 import { resumes } from "../Resumes/resumeData";
@@ -7,21 +6,16 @@ import { useState } from "react";
 import { Check } from "lucide-react";
 import { useDispatch } from "react-redux";
 import { updateResumeSummary } from "../../../reduxt-store/resume/resumeThunk";
-import { useEffect } from "react";
 
 const SummarySection = ({ resumeId, resume }) => {
-  const [text, setText] = useState("");
+  const [draft, setDraft] = useState(null);
+  const text = draft ?? resume?.summary ?? "";
   const dispatch = useDispatch();
 
   const handleSave = () => {
     dispatch(updateResumeSummary({ resumeId, summary: text }));
     console.log("summary text - ", text);
   };
-  useEffect(() => {
-    if (resume.summary) {
-      setText(resume.summary);
-    }
-  }, [resume]);
   return (
     <div className="space-y-3">
       <p className="text-sm text-slate-500">
@@ -38,7 +32,7 @@ const SummarySection = ({ resumeId, resume }) => {
         </Button>
         <CopyFromMenu resumes={resumes} />
       </div>
-      <Textarea value={text} onChange={(e) => setText(e.target.value)} />
+      <Textarea value={text} onChange={(e) => setDraft(e.target.value)} />
       <p className="text-xs text-slate-400">{text.length} characters</p>
 
       <Button onClick={handleSave}>

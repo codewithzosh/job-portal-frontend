@@ -1,5 +1,4 @@
 import { FileText } from "lucide-react";
-import React from "react";
 import ApplicationStateCard from "./ApplicationStateCard";
 import { Briefcase } from "lucide-react";
 import { TrendingUp } from "lucide-react";
@@ -16,13 +15,13 @@ import { useState } from "react";
 import ApplicationCard from "./ApplicationCard";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
-import { fetchMyApplications, withdrawApplication } from "../../../reduxt-store/application/applicationThunk";
+import { fetchMyApplications } from "../../../reduxt-store/application/applicationThunk";
 import { useSelector } from "react-redux";
 
 const Application = () => {
   const [selectedTab, setSelectedTab] = useState("all");
   const dispatch = useDispatch();
-  const {myApplications}=useSelector(store=>store.application)
+  const { myApplications } = useSelector((store) => store.application);
   const stats = {
     total: 5,
     active: 4,
@@ -32,13 +31,9 @@ const Application = () => {
 
   useEffect(() => {
     dispatch(fetchMyApplications());
-  }, []);
+  }, [dispatch]);
 
-
- 
-
-
-  console.log("myApplications ------------------- ",myApplications)
+  console.log("myApplications ------------------- ", myApplications);
   return (
     <div className="max-w-5xl min-w-5xl max-auto px-4 sm:px-6 lg:px-8 py-8">
       <div className="mb-8">

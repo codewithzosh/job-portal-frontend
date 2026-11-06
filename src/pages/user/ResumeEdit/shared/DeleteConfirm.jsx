@@ -1,4 +1,3 @@
-import React from "react";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -8,14 +7,11 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-
 } from "../../../../components/ui/alert-dialog";
-
 
 const DeleteConfirm = ({ label, onConfirm, onClose, open }) => {
   return (
     <AlertDialog open={open} onOpenChange={onClose}>
-     
       <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle>Delete {label}?</AlertDialogTitle>

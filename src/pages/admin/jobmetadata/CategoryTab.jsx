@@ -1,5 +1,4 @@
 import { Search } from "lucide-react";
-import React from "react";
 import { Input } from "../../../components/ui/input";
 import { useState } from "react";
 import { Button } from "../../../components/ui/button";
@@ -34,7 +33,7 @@ const CategoryTab = ({ categories }) => {
   const [search, setSearch] = useState("");
   const [formOpen, setFormOpen] = useState(false);
   const [editTarget, setEditTarget] = useState(null);
-  const dispatch=useDispatch()
+  const dispatch = useDispatch();
 
   const filtered = useMemo(() => {
     let list = [...categories];
@@ -60,11 +59,11 @@ const CategoryTab = ({ categories }) => {
     setFormOpen(true);
   };
 
-  const handleDelete=(category)=>{
-    dispatch(deleteCategory(category.id))
-    console.log("delete category ",category)
-    setFormOpen(false)
-  }
+  const handleDelete = (category) => {
+    dispatch(deleteCategory(category.id));
+    console.log("delete category ", category);
+    setFormOpen(false);
+  };
   return (
     <div className="space-y-6">
       <div className="flex justify-between items-center">
@@ -176,7 +175,10 @@ const CategoryTab = ({ categories }) => {
                             <Pencil className="h-3.5 w-3.5 mr-2" />
                             Edit
                           </DropdownMenuItem>
-                          <DropdownMenuItem onClick={()=>handleDelete(category)} className="text-red-600 focus:text-red-600 focus:bg-red-50">
+                          <DropdownMenuItem
+                            onClick={() => handleDelete(category)}
+                            className="text-red-600 focus:text-red-600 focus:bg-red-50"
+                          >
                             <Trash2 className="h-3.5 w-3.5 mr-2" /> Delete
                           </DropdownMenuItem>
                         </DropdownMenuGroup>
@@ -194,7 +196,6 @@ const CategoryTab = ({ categories }) => {
         open={formOpen}
         onClose={() => {
           setFormOpen(false);
-         
         }}
         rootCategories={rootCategories}
         initialData={editTarget}

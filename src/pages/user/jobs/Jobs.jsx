@@ -26,7 +26,6 @@ import { enhanceSearch } from "../../../reduxt-store/ai/aiThunk";
 import { useMemo } from "react";
 
 const SORT_OPTIONS = [
-
   { value: "newest", label: "Newest first" },
   { value: "salary-high", label: "Salary: high → low" },
   { value: "salary-low", label: "Salary: low → high" },
@@ -45,18 +44,17 @@ const DEFAULT_FILTERS = {
 const Jobs = () => {
   const [aiQuery, setAiQuery] = React.useState("");
   const [sortBy, setSortBy] = useState(SORT_OPTIONS[0].value);
-  const [page, setPage] = useState(1);
+  const [, setPage] = useState(1);
   const dispatch = useDispatch();
   const { jobs } = useSelector((state) => state.job);
-  const [activeFilterCount, setActiveFilterCount] = useState(0);
   const [filters, setFilters] = useState(DEFAULT_FILTERS);
 
   const handleSortBy = (value) => {
     (setSortBy(value), setPage(1));
   };
 
-  useEffect(() => {
-    const param = {
+  const param = useMemo(() => {
+    return {
       keyword: filters.keyword || undefined,
       location: filters.location || undefined,
       jobType: filters.jobTypes.length > 0 ? filters.jobTypes[0] : undefined,
@@ -66,16 +64,16 @@ const Jobs = () => {
       minSalary: filters.minSalary > 0 ? filters.minSalary : undefined,
       maxSalary: filters.maxSalary < 500000 ? filters.maxSalary : undefined,
     };
+  }, [filters]);
 
-    const active = Object.values(param).filter(
-      (value) => value !== undefined,
-    ).length;
+  const activeFilterCount = Object.values(param).filter(
+    (value) => value !== undefined,
+  ).length;
 
-    setActiveFilterCount(active);
-
+  useEffect(() => {
     console.log("param", param);
     dispatch(fetchJobs(param));
-  }, [filters]);
+  }, [param, dispatch]);
 
   const handleFilter = (val) => {
     setFilters(val);
@@ -127,7 +125,7 @@ const Jobs = () => {
 
   const sortedJobs = useMemo(() => {
     const sorted = [...jobs];
-   
+
     if (sortBy == "salary-high")
       return sorted.sort(
         (a, b) => Number(b.maxSalary ?? 0) - Number(a.maxSalary ?? 0),
@@ -139,7 +137,7 @@ const Jobs = () => {
     return sorted.sort(
       (a, b) => new Date(b.createdAt ?? 0) - new Date(a.createdAt ?? 0),
     );
-  }, [sortBy,jobs]);
+  }, [sortBy, jobs]);
 
   return (
     <div className="w-full">

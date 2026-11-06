@@ -1,4 +1,3 @@
-import React from "react";
 import {
   Card,
   CardContent,
@@ -12,7 +11,6 @@ import { X } from "lucide-react";
 import { Checkbox } from "../../../components/ui/checkbox";
 import { Separator } from "../../../components/ui/separator";
 import { Slider } from "../../../components/ui/slider";
-
 
 const JOB_TYPES = [
   { value: "FULL_TIME", label: "Full-time" },
@@ -48,7 +46,7 @@ const JobFilter = ({ filters, setFilters, onReset }) => {
   const onChange = (key, val) =>
     setFilters((prev) => ({ ...prev, [key]: val }));
 
-  console.log("job types ---------- ",jobTypes)
+  console.log("job types ---------- ", jobTypes);
   return (
     <Card className="sticky top-20 border-slate-200">
       <CardHeader className={"pb-3"}>
@@ -63,7 +61,7 @@ const JobFilter = ({ filters, setFilters, onReset }) => {
 
           <div>
             <Button
-            onClick={onReset}
+              onClick={onReset}
               variant="ghost"
               size="sm"
               className="h-7 text-xs text-slate-500 hover:text-red-600"
@@ -89,10 +87,9 @@ const JobFilter = ({ filters, setFilters, onReset }) => {
                 key={value}
               >
                 <Checkbox
-                checked={jobTypes.includes(value)}
+                  checked={jobTypes.includes(value)}
                   onCheckedChange={() =>
                     onChange("jobTypes", toggle(jobTypes, value))
-                  
                   }
                 />
                 <span>{label}</span>
@@ -113,11 +110,13 @@ const JobFilter = ({ filters, setFilters, onReset }) => {
                 className="flex items-center gap-2.5 cursor-pointer group"
                 key={value}
               >
-                <Checkbox  checked={workModes.includes(value)}  onCheckedChange={() =>
+                <Checkbox
+                  checked={workModes.includes(value)}
+                  onCheckedChange={() =>
                     onChange("workModes", toggle(workModes, value))
-                  }/>
+                  }
+                />
                 <span>{label}</span>
-               
               </div>
             ))}
           </div>
@@ -129,15 +128,19 @@ const JobFilter = ({ filters, setFilters, onReset }) => {
             Experience Level
           </h4>
           <div className="space-y-2">
-            {EXP_LEVELS.map(({ value, label,sub }) => (
+            {EXP_LEVELS.map(({ value, label, sub }) => (
               <div
                 className="flex items-center gap-2.5 cursor-pointer group"
                 key={value}
               >
-                <Checkbox  checked={expLevels.includes(value)} onCheckedChange={() =>
+                <Checkbox
+                  checked={expLevels.includes(value)}
+                  onCheckedChange={() =>
                     onChange("expLevels", toggle(expLevels, value))
-                  }/>
-                <span>{label}</span> (<span className="text-xs text-gray-500">{sub}</span>)
+                  }
+                />
+                <span>{label}</span> (
+                <span className="text-xs text-gray-500">{sub}</span>)
               </div>
             ))}
           </div>
@@ -159,8 +162,12 @@ const JobFilter = ({ filters, setFilters, onReset }) => {
             max={500000}
             step={10000}
             value={[minSalary, maxSalary]}
-            onValueChange={
-              ([min,max])=>setFilters((prev)=>({...prev,minSalary:min, maxSalary:max}))
+            onValueChange={([min, max]) =>
+              setFilters((prev) => ({
+                ...prev,
+                minSalary: min,
+                maxSalary: max,
+              }))
             }
           />
           <div className="flex justify-between text-xs text-slate-400 mt-1.5">

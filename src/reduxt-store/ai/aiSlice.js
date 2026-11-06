@@ -277,5 +277,4 @@ const aiSlice = createSlice({
   },
 });
 
-
-export default aiSlice.reducer
+export default aiSlice.reducer;

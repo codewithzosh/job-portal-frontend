@@ -1,12 +1,12 @@
 export function getRoleBasedRedirect(role) {
   switch (role) {
     case "ROLE_JOB_SEEKER":
-      return "/"
+      return "/";
     case "ROLE_EMPLOYER":
-      return "/employer"
+      return "/employer";
     case "ROLE_ADMIN":
-      return "/admin"
+      return "/admin";
     default:
-      return "/login"
+      return "/login";
   }
 }

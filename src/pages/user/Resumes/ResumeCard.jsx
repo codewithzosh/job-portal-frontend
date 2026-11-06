@@ -1,4 +1,3 @@
-import React from "react";
 import { Card, CardContent } from "../../../components/ui/card";
 import { User } from "lucide-react";
 import { Badge } from "../../../components/ui/badge";
@@ -14,31 +13,29 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setDefaultResume } from "../../../reduxt-store/resume/resumeThunk";
 
+function computeCompletionScore(resume) {
+  let score = 0;
 
-
-function computeCompletionScore(resume){
-  let score=0;
-
-  const pi=resume.personalInfo??{};
-  if(pi.firstName || pi.lastName) score +=10
-if (pi.email) score += 5;
-if (pi.headline) score += 5;
-if (resume.summary) score += 15;
-if (resume.workExperiences?.length > 0) score += 20;
- if (resume.educations?.length > 0) score += 15;
- if ((resume.skills?.length ?? 0) >= 2) score += 15;
- if (resume.projects?.length > 0) score += 10;
- if(resume.languages?.length>0)score+=5
+  const pi = resume.personalInfo ?? {};
+  if (pi.firstName || pi.lastName) score += 10;
+  if (pi.email) score += 5;
+  if (pi.headline) score += 5;
+  if (resume.summary) score += 15;
+  if (resume.workExperiences?.length > 0) score += 20;
+  if (resume.educations?.length > 0) score += 15;
+  if ((resume.skills?.length ?? 0) >= 2) score += 15;
+  if (resume.projects?.length > 0) score += 10;
+  if (resume.languages?.length > 0) score += 5;
   return score;
 }
 
 const ResumeCard = ({ resume }) => {
-  const dispatch=useDispatch();
-  const navigate=useNavigate()
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  const handleSetDefaultResume=()=>{
-    dispatch(setDefaultResume(resume.id))
-  }
+  const handleSetDefaultResume = () => {
+    dispatch(setDefaultResume(resume.id));
+  };
 
   const completionScore = computeCompletionScore(resume);
   return (
@@ -76,7 +73,12 @@ const ResumeCard = ({ resume }) => {
             View
           </Button>
 
-          <Button onClick={()=>navigate(`/resumes/${resume.id}/edit`)} className={"flex-1"} variant="outline" size="sm">
+          <Button
+            onClick={() => navigate(`/resumes/${resume.id}/edit`)}
+            className={"flex-1"}
+            variant="outline"
+            size="sm"
+          >
             <Pencil className="h-3 w-3 mr-1" />
             Edit
           </Button>
@@ -102,7 +104,7 @@ const ResumeCard = ({ resume }) => {
             size="sm"
             onClick={handleSetDefaultResume}
           >
-             <StarOff className="h-3.5 w-3.5 mr-1" />
+            <StarOff className="h-3.5 w-3.5 mr-1" />
             Set As Default
           </Button>
         ) : (

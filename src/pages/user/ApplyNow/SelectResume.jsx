@@ -1,5 +1,4 @@
 import { FileText } from "lucide-react";
-import React from "react";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Card, CardContent } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
@@ -12,14 +11,14 @@ import { fetchMyResumes } from "../../../reduxt-store/resume/resumeThunk";
 import { useDispatch } from "react-redux";
 
 const SelectResume = ({ selectedResume, setSelectedResume }) => {
-  const {resumes}=useSelector(store=>store.resume)
-  const dispatch=useDispatch()
+  const { resumes } = useSelector((store) => store.resume);
+  const dispatch = useDispatch();
 
-    useEffect(() => {
-      dispatch(fetchMyResumes());
-    }, []);
+  useEffect(() => {
+    dispatch(fetchMyResumes());
+  }, [dispatch]);
   return (
-    <div className='space-y-6'>
+    <div className="space-y-6">
       <div>
         <h2 className="text-2xl font-bold text-slate-900 mb-2">
           Select Resume

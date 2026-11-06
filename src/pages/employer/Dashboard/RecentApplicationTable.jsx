@@ -1,4 +1,3 @@
-import React from "react";
 import {
   Card,
   CardContent,
@@ -27,7 +26,7 @@ const RecentApplicationTable = () => {
     const filters = {};
 
     dispatch(fetchCompanyApplications(filters));
-  }, []);
+  }, [dispatch]);
   return (
     <Card>
       <CardHeader className="flex flex-row items-center justify-between py-2">

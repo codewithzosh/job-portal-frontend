@@ -1,4 +1,3 @@
-import React from "react";
 import CopyFromMenu from "./shared/CopyFromMenu";
 import AddButton from "./shared/AddButton";
 import { useState } from "react";
@@ -18,7 +17,6 @@ import {
   deleteSkill,
   updateSkill,
 } from "../../../reduxt-store/resume/resumeThunk";
-import { useEffect } from "react";
 
 const skillsData = {
   skillName: "",
@@ -34,7 +32,7 @@ const skill_pr = {
   EXPERT: 100,
 };
 
-export const PROFICIENCY_LEVELS = [
+const PROFICIENCY_LEVELS = [
   "BEGINNER",
   "ELEMENTARY",
   "INTERMEDIATE",
@@ -52,13 +50,14 @@ const SkillsSection = ({ resumeId, resume }) => {
 
   const openEdit = (item) => {
     setEdit(item);
+    setForm(item);
     setOpen(true);
   };
 
   const openAdd = () => {
     setOpen(true);
-    setEdit(null)
-    setForm(skillsData)
+    setEdit(null);
+    setForm(skillsData);
   };
 
   const save = () => {
@@ -72,15 +71,10 @@ const SkillsSection = ({ resumeId, resume }) => {
   const f = (k) => (e) => setForm({ ...form, [k]: e.target.value });
 
   const handleDelete = () => {
-    dispatch(deleteSkill({resumeId,skillId:delItem.id}))
+    dispatch(deleteSkill({ resumeId, skillId: delItem.id }));
     console.log("deleting", delItem);
   };
 
-   useEffect(() => {
-      if (edit) {
-        setForm(edit);
-      }
-    }, [edit]);
   return (
     <div className="space-y-5">
       <div className="flex items-center justify-between">

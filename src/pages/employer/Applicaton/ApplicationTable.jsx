@@ -1,4 +1,3 @@
-import React from "react";
 import {
   Table,
   TableBody,
@@ -32,14 +31,12 @@ import { ArrowRight } from "lucide-react";
 import { useDispatch } from "react-redux";
 import { toggleStar } from "../../../reduxt-store/application/applicationThunk";
 
-
-
 const ApplicationTable = ({ applications, isFullMode, onUpdateStatus }) => {
-  const dispatch=useDispatch()
+  const dispatch = useDispatch();
 
-   const handleStar=(id)=>{
-    dispatch(toggleStar(id))
-  }
+  const handleStar = (id) => {
+    dispatch(toggleStar(id));
+  };
   return (
     <Table>
       <TableHeader>
@@ -74,8 +71,14 @@ const ApplicationTable = ({ applications, isFullMode, onUpdateStatus }) => {
             <TableRow>
               {isFullMode && (
                 <TableCell>
-                  <Button onClick={()=>handleStar(app.id)} variant="ghost" size="icon">
-                    <Star className={`${app.isStarred?"fill-primary":""}`} />
+                  <Button
+                    onClick={() => handleStar(app.id)}
+                    variant="ghost"
+                    size="icon"
+                  >
+                    <Star
+                      className={`${app.isStarred ? "fill-primary" : ""}`}
+                    />
                   </Button>
                 </TableCell>
               )}
@@ -132,7 +135,7 @@ const ApplicationTable = ({ applications, isFullMode, onUpdateStatus }) => {
                       <DropdownMenuItem>
                         <Eye className="mr-2 h-4 w-4" /> View Details
                       </DropdownMenuItem>
-                      <DropdownMenuItem onClick={()=>onUpdateStatus(app)}>
+                      <DropdownMenuItem onClick={() => onUpdateStatus(app)}>
                         <FileText className="mr-2 h-4 w-4" /> Update Status
                       </DropdownMenuItem>
                       <DropdownMenuSeparator />
@@ -143,11 +146,9 @@ const ApplicationTable = ({ applications, isFullMode, onUpdateStatus }) => {
                         <ScrollText className="mr-2 h-4 w-4" /> Summarize Notes
                       </DropdownMenuItem>
                       <DropdownMenuSeparator />
-                      <DropdownMenuItem onClick={()=>handleStar(app.id)}>
+                      <DropdownMenuItem onClick={() => handleStar(app.id)}>
                         <Star className="mr-2 h-4 w-4" /> Star Candidate
                       </DropdownMenuItem>
-
-                      
                     </DropdownMenuContent>
                   </DropdownMenu>
                 ) : (

@@ -5,5 +5,5 @@ export function replaceInList(list, updatedItem) {
     list[index] = updatedItem;
   }
 
-  return list
+  return list;
 }

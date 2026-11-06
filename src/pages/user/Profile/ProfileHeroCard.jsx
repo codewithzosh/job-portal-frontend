@@ -1,4 +1,3 @@
-import React from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import AvatarUpload from "./AvatarUpload";
 
@@ -12,7 +11,6 @@ const pct = 77;
 const ProfileHeroCard = ({
   user,
   editing,
-  uploading,
   onFileSelect,
   onEdit,
   onSave,

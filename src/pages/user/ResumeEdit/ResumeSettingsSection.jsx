@@ -1,20 +1,20 @@
-import React from 'react'
-import FRow from './shared/FRow'
-import { Input } from '../../../components/ui/input'
-import { useState } from 'react'
-import { Button } from '../../../components/ui/button'
-import { useDispatch } from 'react-redux'
+import FRow from "./shared/FRow";
+import { Input } from "../../../components/ui/input";
+import { useState } from "react";
+import { Button } from "../../../components/ui/button";
+import { useDispatch } from "react-redux";
+import { updateResumeTitle } from "../../../reduxt-store/resume/resumeThunk";
 
-const ResumeSettingsSection = () => {
-  const [title,setTitle]=useState("")
-  const dispatch=useDispatch()
+const ResumeSettingsSection = ({ resumeId }) => {
+  const [title, setTitle] = useState("");
+  const dispatch = useDispatch();
 
-  const handleSave=()=>{
-    dispatch(updateRes)
-    console.log("save settings ",title)
-  }
+  const handleSave = () => {
+    dispatch(updateResumeTitle({ resumeId, title }));
+    console.log("save settings ", title);
+  };
   return (
-    <div className='space-y-5'>
+    <div className="space-y-5">
       <FRow label="Resume Title">
         <Input
           value={title}
@@ -25,11 +25,9 @@ const ResumeSettingsSection = () => {
         <p className="text-xs text-slate-400 mt-1">{title.length}/150</p>
       </FRow>
 
-      <Button  onClick={handleSave}>
-        Save Settings
-      </Button>
+      <Button onClick={handleSave}>Save Settings</Button>
     </div>
-  )
-}
+  );
+};
 
-export default ResumeSettingsSection
+export default ResumeSettingsSection;

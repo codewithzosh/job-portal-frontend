@@ -1,6 +1,5 @@
-import React from "react";
 import AuthLaout from "./AuthLaout";
-import { useForm } from "react-hook-form";
+import { useForm, useWatch } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { registerSchema } from "./authSchemas";
 import { Label } from "../../components/ui/label";
@@ -22,13 +21,13 @@ import { useNavigate } from "react-router-dom";
 
 const Register = () => {
   const { isAuthenticated, user } = useSelector((state) => state.auth);
-  const navigate=useNavigate();
-  const dispatch=useDispatch()
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const {
     register,
     handleSubmit,
     setValue,
-    watch,
+    control,
     formState: { errors },
   } = useForm({
     resolver: zodResolver(registerSchema),
@@ -41,22 +40,19 @@ const Register = () => {
     },
   });
 
-  const selectedRole = watch("role");
+  const selectedRole = useWatch({ control, name: "role" });
 
   const onSubmit = async (data) => {
-    dispatch(registerUser(data))
+    dispatch(registerUser(data));
     console.log("register form data", data);
   };
 
-    useEffect(() => {
-      // console.log("")
-      if (isAuthenticated && user) {
-        
-        navigate("/");
-  
-       
-      }
-    }, [isAuthenticated, user]);
+  useEffect(() => {
+    // console.log("")
+    if (isAuthenticated && user) {
+      navigate("/");
+    }
+  }, [isAuthenticated, user, navigate]);
 
   return (
     <AuthLaout
@@ -132,11 +128,12 @@ const Register = () => {
             />
           </div>
 
-          {errors.password && <p className="text-xs text-red-600 flex items-center gap-1.5 mt-1.5 animate-in slide-in-from-top-1">
-            <AlertCircle className="h-3 w-3" />
-            {errors.password.message}</p>}
-
-
+          {errors.password && (
+            <p className="text-xs text-red-600 flex items-center gap-1.5 mt-1.5 animate-in slide-in-from-top-1">
+              <AlertCircle className="h-3 w-3" />
+              {errors.password.message}
+            </p>
+          )}
         </div>
 
         <div className="space-y-2">
@@ -181,9 +178,9 @@ const Register = () => {
           </div>
         </div>
 
-        <Button  type="submit" className="w-full  shadow-md hover:shadow-lg">
-            Register
-            <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-0.5 transition-transform"/>
+        <Button type="submit" className="w-full  shadow-md hover:shadow-lg">
+          Register
+          <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-0.5 transition-transform" />
         </Button>
       </form>
     </AuthLaout>

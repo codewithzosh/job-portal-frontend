@@ -1,5 +1,4 @@
 import { X } from "lucide-react";
-import React from "react";
 import { useState } from "react";
 import { Input } from "../../../../components/ui/input";
 import { Button } from "../../../../components/ui/button";
@@ -10,9 +9,9 @@ const TagInput = ({ tags, onChange, placeholder = "Add tag..." }) => {
   const add = () => {
     const v = val.trim();
 
-    console.log("value ",v)
+    console.log("value ", v);
     if (v && !tags.includes(v)) {
-        console.log("inside")
+      console.log("inside");
       onChange([...tags, v]);
       setValue("");
     }
@@ -37,8 +36,14 @@ const TagInput = ({ tags, onChange, placeholder = "Add tag..." }) => {
       </div>
 
       <div className="flex gap-2 items-center">
-        <Input placeholder={placeholder} value={val} onChange={(e)=>setValue(e.target.value)}/>
-        <Button type="button"  variant="outline" onClick={add}>Add</Button>
+        <Input
+          placeholder={placeholder}
+          value={val}
+          onChange={(e) => setValue(e.target.value)}
+        />
+        <Button type="button" variant="outline" onClick={add}>
+          Add
+        </Button>
       </div>
     </div>
   );

@@ -1,5 +1,3 @@
-import React from "react";
-
 import { isToday, STATUS_CFG, STATUS_ORDER } from "./config";
 import { BrainCircuit } from "lucide-react";
 import { useMemo } from "react";
@@ -15,7 +13,6 @@ import {
 } from "../../../components/ui/card";
 import BreakdownPieChart from "./BreakdownPieChart";
 import CoverageDonut from "./CoverageDonut";
-import { Sparkle } from "lucide-react";
 import { Badge } from "../../../components/ui/badge";
 import { Eye } from "lucide-react";
 import CandidateRow from "./CandidateRow";
@@ -88,19 +85,19 @@ const AIScreening = () => {
     if (myCompany) {
       dispatch(fetchMyJobs(myCompany?.id));
     }
-  }, [myCompany]);
+  }, [myCompany, dispatch]);
 
   useEffect(() => {
     dispatch(fetchMyCompany());
-  }, []);
-  
+  }, [dispatch]);
+
   useEffect(() => {
     const filters = {};
 
     console.log("filters ----- ", filters);
 
     dispatch(fetchCompanyApplications(filters));
-  }, []);
+  }, [dispatch]);
 
   return (
     <div className="space-y-5">

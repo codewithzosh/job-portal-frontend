@@ -1,4 +1,3 @@
-import React from "react";
 import { Card, CardContent } from "../../../components/ui/card";
 import { CheckCircle2 } from "lucide-react";
 
@@ -8,13 +7,12 @@ import { DollarSign } from "lucide-react";
 import { Clock } from "lucide-react";
 
 import { Separator } from "../../../components/ui/separator";
-import { Users } from "lucide-react";
 import { Button } from "../../../components/ui/button";
 import { ExternalLink } from "lucide-react";
 import { withdrawApplication } from "../../../reduxt-store/application/applicationThunk";
 import { useDispatch } from "react-redux";
 
-export const PIPELINE = [
+const PIPELINE = [
   "PENDING",
   "REVIEWING",
   "SHORTLISTED",
@@ -114,9 +112,7 @@ const ApplicationCard = ({ app }) => {
 
               <div>
                 <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-3 text-xs text-muted-foreground">
-                  
-                  </div>
+                  <div className="flex items-center gap-3 text-xs text-muted-foreground"></div>
 
                   <div>
                     <Button variant="ghost">
@@ -126,9 +122,9 @@ const ApplicationCard = ({ app }) => {
                       onClick={() => handleWithdrawalApplication(app.id)}
                       className={"text-red-400"}
                       variant="ghost"
-                      disabled={app?.status=="WITHDRAWN"}
+                      disabled={app?.status == "WITHDRAWN"}
                     >
-                      {app?.status=="WITHDRAWN"?"WITHDRAWN":"Withdraw"}
+                      {app?.status == "WITHDRAWN" ? "WITHDRAWN" : "Withdraw"}
                     </Button>
                   </div>
                 </div>

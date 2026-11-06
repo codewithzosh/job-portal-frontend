@@ -1,4 +1,3 @@
-import React from "react";
 import JobSection from "./JobSection";
 import { Briefcase } from "lucide-react";
 import { Input } from "../../../components/ui/input";
@@ -70,15 +69,7 @@ const CreateJob = ({ isEdit = false }) => {
   const { jobId } = useParams();
   const dispatch = useDispatch();
   const { categories, skills, tags } = useSelector((state) => state.jobMeta);
-  const { currentJob } = useSelector((state) => state.job);
   const {
-    jobDescription,
-    jobRequirements,
-    salarySuggestion,
-    recommendedSkills,
-    jobResponsibilities,
-    jobBenefits,
-    recommendedTags,
     isGeneratingJobDescription,
     isGeneratingJobRequirements,
     isSuggestingSalary,
@@ -136,16 +127,21 @@ const CreateJob = ({ isEdit = false }) => {
     dispatch(fetchCategories());
     dispatch(fetchSkills());
     dispatch(fetchTags());
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
-    if (jobId) {
-      dispatch(fetchJobById(jobId));
-    }
-  }, [jobId]);
+    let ignore = false;
 
-  useEffect(() => {
-    if (currentJob && isEdit) {
+    const fetchJob = async () => {
+      const result = await dispatch(fetchJobById(jobId));
+
+      if (ignore || result.meta.requestStatus !== "fulfilled" || !isEdit) {
+        return;
+      }
+
+      const currentJob = result.payload;
+      if (!currentJob) return;
+
       setForm({
         title: currentJob.title || "",
         description: currentJob.description ?? "",
@@ -177,11 +173,18 @@ const CreateJob = ({ isEdit = false }) => {
         applicationDeadline: currentJob.applicationDeadline ?? "",
         expiresAt: currentJob.expiresAt ?? "",
       });
-    }
-  }, [currentJob]);
+    };
 
+    if (jobId) {
+      fetchJob();
+    }
+
+    return () => {
+      ignore = true;
+    };
+  }, [jobId, dispatch, isEdit]);
   const selectedSkillsName = (skillOpts) => {
-    skillOpts
+    return skillOpts
       .filter((s) => form.skillIds.includes(s.id))
       .map((s) => s.name)
       .join(", ");
@@ -189,14 +192,14 @@ const CreateJob = ({ isEdit = false }) => {
 
   // react, spring boot, node
 
-  const handleGenerateDescription = () => {
+  const handleGenerateDescription = async () => {
     if (!form.title) return;
 
     const categoryName = categories.find(
       (c) => String(c.id) === form.categoryId,
     )?.name;
 
-    dispatch(
+    const result = await dispatch(
       generateJobDescription({
         title: form.title,
         skills: selectedSkillsName(
@@ -208,76 +211,146 @@ const CreateJob = ({ isEdit = false }) => {
         category: categoryName,
       }),
     );
+
+    if (result.meta.requestStatus !== "fulfilled" || !result.payload) return;
+    setForm((f) => ({ ...f, description: result.payload.content }));
   };
 
-  const handleAutoFillRequirements = () => {
+  const handleAutoFillRequirements = async () => {
     if (!form.title) return;
 
     const categoryName = categories.find(
       (c) => String(c.id) === form.categoryId,
     )?.name;
-    dispatch(
+    const result = await dispatch(
       generateJobRequirements({ title: form.title, category: categoryName }),
     );
+
+    if (result.meta.requestStatus !== "fulfilled" || !result.payload) return;
+    setForm((f) => ({ ...f, requirements: result.payload.content }));
   };
 
-  const handleAutoFillResponsibilities = () => {
+  const handleAutoFillResponsibilities = async () => {
     if (!form.title) return;
 
     const categoryName = categories.find(
       (c) => String(c.id) === form.categoryId,
     )?.name;
-    dispatch(
+    const result = await dispatch(
       generateJobResponsibilities({
         title: form.title,
         category: categoryName,
       }),
     );
+
+    if (result.meta.requestStatus !== "fulfilled" || !result.payload) return;
+    setForm((f) => ({ ...f, responsibilities: result.payload.content }));
   };
 
-  const handleAutoFillBenefits = () => {
+  const handleAutoFillBenefits = async () => {
     if (!form.title) return;
 
     const categoryName = categories.find(
       (c) => String(c.id) === form.categoryId,
     )?.name;
-    dispatch(
+    const result = await dispatch(
       generateJobBenefits({
         title: form.title,
         category: categoryName,
         jobType: form.jobType || undefined,
       }),
     );
+
+    if (result.meta.requestStatus !== "fulfilled" || !result.payload) return;
+    setForm((f) => ({ ...f, benefits: result.payload.content }));
   };
 
-  const handleRecommendTags = () => {
+  const handleRecommendTags = async () => {
     if (!form.title.trim()) {
       return;
     }
-    dispatch(
+    const result = await dispatch(
       recommendJobTags({
         title: form.title,
         description: form.description || undefined,
       }),
     );
+
+    if (result.meta.requestStatus !== "fulfilled" || !result.payload?.content) {
+      return;
+    }
+
+    const aiGeneratedTags = result.payload.content;
+    const names = aiGeneratedTags
+      .split(", ")
+      .map((t) => t.trim().toLowerCase());
+
+    const tagOpts = tags.map((t) => ({ id: t.id, name: t.name }));
+
+    const matched = tagOpts.filter((tag) =>
+      names.some(
+        (n) =>
+          tag.name.toLowerCase() === n ||
+          tag.name.toLowerCase().includes(n) ||
+          n.includes(tag.name.toLowerCase()),
+      ),
+    );
+
+    setForm((f) => {
+      const newIds = matched
+        .map((tag) => tag.id)
+        .filter((id) => !f.tagIds.includes(id));
+
+      return newIds.length > 0 ? { ...f, tagIds: [...f.tagIds, ...newIds] } : f;
+    });
   };
 
-  const handleRecommendSkills = () => {
+  const handleRecommendSkills = async () => {
     if (!form.title.trim()) return;
-    dispatch(
+    const result = await dispatch(
       recommendJobSkills({
         title: form.title,
         description: form.description || undefined,
       }),
     );
+
+    if (result.meta.requestStatus !== "fulfilled" || !result.payload?.content) {
+      return;
+    }
+
+    const aiGeneratedSkills = result.payload.content;
+    const names = aiGeneratedSkills
+      .split(", ")
+      .map((t) => t.trim().toLowerCase());
+
+    const skillOpts = skills.map((t) => ({ id: t.id, name: t.name }));
+
+    const matched = skillOpts.filter((skill) =>
+      names.some(
+        (n) =>
+          skill.name.toLowerCase() === n ||
+          skill.name.toLowerCase().includes(n) ||
+          n.includes(skill.name.toLowerCase()),
+      ),
+    );
+
+    setForm((f) => {
+      const newIds = matched
+        .map((skill) => skill.id)
+        .filter((id) => !f.skillIds.includes(id));
+
+      return newIds.length > 0
+        ? { ...f, skillIds: [...f.skillIds, ...newIds] }
+        : f;
+    });
   };
 
-  const handleSuggestSalary = () => {
+  const handleSuggestSalary = async () => {
     if (!form.title.trim()) return;
     const skillNames = selectedSkillsName(
       skills.map((s) => ({ id: s.id, name: s.name })),
     );
-    dispatch(
+    const result = await dispatch(
       suggestSalary({
         title: form.title,
         skills: skillNames || undefined,
@@ -286,34 +359,10 @@ const CreateJob = ({ isEdit = false }) => {
         location: form.city || form.country || undefined,
       }),
     );
-  };
 
-  useEffect(() => {
-    // console.log("job description from redux store ",jobDescription)
-    if (!jobDescription) return;
-    setForm((f) => ({ ...f, description: jobDescription.content }));
-  }, [jobDescription]);
+    if (result.meta.requestStatus !== "fulfilled" || !result.payload) return;
 
-  useEffect(() => {
-    // console.log("job description from redux store ",jobDescription)
-    if (!jobRequirements) return;
-    setForm((f) => ({ ...f, description: jobRequirements.content }));
-  }, [jobRequirements]);
-
-  useEffect(() => {
-    if (!jobResponsibilities) return;
-    setForm((f) => ({ ...f, responsibilities: jobResponsibilities.content }));
-  }, [jobResponsibilities]);
-
-  useEffect(() => {
-    if (!jobBenefits) return;
-    setForm((f) => ({ ...f, benefits: jobBenefits.content }));
-  }, [jobBenefits]);
-
-  useEffect(() => {
-    if (!salarySuggestion) return;
-
-    console.log("salary suggestion from redux  ", salarySuggestion)
+    const salarySuggestion = result.payload;
     setForm((f) => ({
       ...f,
       minSalary:
@@ -325,84 +374,7 @@ const CreateJob = ({ isEdit = false }) => {
           ? String(salarySuggestion.maxSalary)
           : f.maxSalary,
     }));
-  }, [salarySuggestion]);
-
-  useEffect(() => {
-    console.log("recommendSkills -------- ", recommendedSkills?.content);
-    
-    if (!recommendedSkills || skills.length == 0) return;
-
-    
-
-    // const aiGeneratedSkills =
-    //   "Java, Spring Boot, Microservices, RESTful APIs, Hibernate, PostgreSQL, Docker, Kubernetes, Apache Kafka, JUnit";
-    const aiGeneratedSkills=recommendedSkills.content
-    const names = aiGeneratedSkills
-      .split(", ")
-      .map((t) => t.trim().toLowerCase());
-
-    const skillOpts = skills.map((t) => ({ id: t.id, name: t.name }));
-
-    console.log("skill opts", skillOpts)
-
-    const matched = skillOpts.filter((skill) =>
-      names.some(
-        (n) =>
-          skill.name.toLowerCase() === n ||
-          skill.name.toLowerCase().includes(n) ||
-          n.includes(skill.name.toLowerCase()),
-      ),
-    );
-
-    console.log("matched skills",matched)
-
-    const newIds = matched
-      .map((skill) => skill.id)
-      .filter((id) => !form.skillIds.includes(id));
-
-    if (newIds.length > 0) {
-      setForm((f) => ({ ...f, skillIds: [...f.skillIds, ...newIds] }));
-    }
-  }, [recommendedSkills, skills]);
-
-  useEffect(() => {
-    // "Spring Boot, Java, Microservices, REST API, Hibernate, Backend Development, Spring Framework, SQL, Cloud Computing, Software Engineering"
-    if (!recommendedTags || tags.length == 0) return;
-
-    // const aiTags="Java, Spring Boot, Microservices, REST API, Backen…ernate, Spring Security, Java Developer, SQL, AWS"
-
-    const aiGeneratedTags = recommendedTags?.content;
-    const names = aiGeneratedTags
-      .split(", ")
-      .map((t) => t.trim().toLowerCase());
-
-    console.log("names --- ", names, tags);
-
-    const tagOpts = tags.map((t) => ({ id: t.id, name: t.name }));
-
-    console.log("tag opts", tagOpts);
-
-    const matched = tagOpts.filter((tag) =>
-      names.some(
-        (n) =>
-          tag.name.toLowerCase() === n ||
-          tag.name.toLowerCase().includes(n) ||
-          n.includes(tag.name.toLowerCase()),
-      ),
-    );
-
-    console.log("matched tags - ", matched);
-
-    const newIds = matched
-      .map((tag) => tag.id)
-      .filter((id) => !form.tagIds.includes(id));
-
-    if (newIds.length > 0) {
-      setForm((f) => ({ ...f, tagIds: [...f.tagIds, ...newIds] }));
-    }
-
-    console.log("tags form redux store ----- ", recommendedTags);
-  }, [recommendedTags, tags]);
+  };
 
   return (
     <div className="space-y-5">
