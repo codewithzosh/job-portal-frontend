@@ -1,4 +1,3 @@
-import React from "react";
 import { cn } from "../../lib/utils";
 import { Users } from "lucide-react";
 import { CheckCircle } from "lucide-react";

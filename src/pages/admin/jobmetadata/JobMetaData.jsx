@@ -1,7 +1,6 @@
 import { Zap } from "lucide-react";
 import { Tag } from "lucide-react";
 import { FolderTree } from "lucide-react";
-import React from "react";
 
 import {
   Tabs,
@@ -45,7 +44,7 @@ const JobMetaData = () => {
     dispatch(fetchCategories());
     dispatch(fetchSkills())
     dispatch(fetchTags())
-  }, []);
+  }, [dispatch]);
 
   return (
     <div className="space-y-6">
@@ -59,7 +58,7 @@ const JobMetaData = () => {
       </section>
 
       <section className="flex flex-wrap gap-3">
-        {jobMetaData.map((item, index) => {
+        {jobMetaData.map((item) => {
           const Icon = item.icon;
           const color = item.color;
           return (

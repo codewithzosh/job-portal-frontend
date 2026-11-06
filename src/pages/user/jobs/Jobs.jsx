@@ -45,18 +45,17 @@ const DEFAULT_FILTERS = {
 const Jobs = () => {
   const [aiQuery, setAiQuery] = React.useState("");
   const [sortBy, setSortBy] = useState(SORT_OPTIONS[0].value);
-  const [page, setPage] = useState(1);
+  const [, setPage] = useState(1);
   const dispatch = useDispatch();
   const { jobs } = useSelector((state) => state.job);
-  const [activeFilterCount, setActiveFilterCount] = useState(0);
   const [filters, setFilters] = useState(DEFAULT_FILTERS);
 
   const handleSortBy = (value) => {
     (setSortBy(value), setPage(1));
   };
 
-  useEffect(() => {
-    const param = {
+  const param = useMemo(() => {
+    return {
       keyword: filters.keyword || undefined,
       location: filters.location || undefined,
       jobType: filters.jobTypes.length > 0 ? filters.jobTypes[0] : undefined,
@@ -66,16 +65,16 @@ const Jobs = () => {
       minSalary: filters.minSalary > 0 ? filters.minSalary : undefined,
       maxSalary: filters.maxSalary < 500000 ? filters.maxSalary : undefined,
     };
+  }, [filters]);
 
-    const active = Object.values(param).filter(
-      (value) => value !== undefined,
-    ).length;
+  const activeFilterCount = Object.values(param).filter(
+    (value) => value !== undefined,
+  ).length;
 
-    setActiveFilterCount(active);
-
+  useEffect(() => {
     console.log("param", param);
     dispatch(fetchJobs(param));
-  }, [filters]);
+  }, [param, dispatch]);
 
   const handleFilter = (val) => {
     setFilters(val);

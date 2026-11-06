@@ -1,5 +1,3 @@
-import React from 'react'
-
 const JobSection = ({icon:Icon, title, children}) => {
   return (
     <div className="rounded-xl border border-slate-200 bg-white shadow-sm overflow-hidden">

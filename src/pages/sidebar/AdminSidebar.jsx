@@ -1,5 +1,4 @@
 import { Sparkles } from 'lucide-react';
-import React from 'react'
 import { ScrollArea } from '../../components/ui/scroll-area';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { cn } from '../../lib/utils';

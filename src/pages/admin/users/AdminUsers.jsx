@@ -1,6 +1,4 @@
-import React from "react";
 import SatateCard from "../../employer/Applicaton/SatateCard";
-
 import { UsersIcon } from "lucide-react";
 import { UserCheck } from "lucide-react";
 import { Briefcase } from "lucide-react";
@@ -45,7 +43,7 @@ const AdminUsers = () => {
 
   useEffect(() => {
     dispatch(fetchAllUsers());
-  }, []);
+  }, [dispatch]);
 
   const summaryCards = [
     {

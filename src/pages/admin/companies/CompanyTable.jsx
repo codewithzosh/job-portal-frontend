@@ -1,8 +1,6 @@
-import React from 'react'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '../../../components/ui/table'
 import { Avatar, AvatarFallback, AvatarImage } from '../../../components/ui/avatar'
 import { Badge } from '../../../components/ui/badge'
-import { cn } from '../../../lib/utils'
 import { CheckCircle } from 'lucide-react'
 
 const CompanyTable = ({companies}) => {

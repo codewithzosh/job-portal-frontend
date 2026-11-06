@@ -1,4 +1,3 @@
-import React from "react";
 import CopyFromMenu from "./shared/CopyFromMenu";
 import AddButton from "./shared/AddButton";
 import { useState } from "react";
@@ -11,18 +10,14 @@ import { Input } from "../../../components/ui/input";
 import { Label } from "../../../components/ui/label";
 import { Checkbox } from "../../../components/ui/checkbox";
 import { Field } from "../../../components/ui/field";
-import { Button } from "../../../components/ui/button";
 import { Textarea } from "../../../components/ui/textarea";
-import TagInput from "./shared/TagInput";
 import DeleteConfirm from "./shared/DeleteConfirm";
 import { useDispatch } from "react-redux";
 import {
   addEducation,
   deleteEducation,
-  updateEducation,
-  updateWorkExperience,
+  updateEducation
 } from "../../../reduxt-store/resume/resumeThunk";
-import { useEffect } from "react";
 
 const educationData = {
   institutionName: "",
@@ -46,12 +41,14 @@ const EducationSection = ({ resumeId, resume }) => {
 
   const openEdit = (item) => {
     setEdit(item);
+    setForm(item);
     setOpen(true);
   };
 
   const openAdd = () => {
     setOpen(true);
     setEdit(null);
+    setForm(educationData);
   };
 
   const save = () => {
@@ -79,11 +76,6 @@ const EducationSection = ({ resumeId, resume }) => {
 
   console.log("edit", edit);
 
-  useEffect(() => {
-    if (edit) {
-      setForm(edit);
-    }
-  }, [edit]);
   return (
     <div className="space-y-5">
       <div className="flex items-center justify-between">
@@ -104,7 +96,7 @@ const EducationSection = ({ resumeId, resume }) => {
             {item.fieldOfStudy && `. ${item.fieldOfStudy}`}
           </p>
           <p className="text-xs text-slate-600">
-            {item.startDate} - {item.isCurrentJob ? "Present" : item.endDate}
+            {item.startDate} - {item.isCurrentlyStudying ? "Present" : item.endDate}
             {item.grade && `. GPA: ${item.grade}`}
           </p>
         </SectionCard>
@@ -172,9 +164,9 @@ const EducationSection = ({ resumeId, resume }) => {
 
         <Field orientation="horizontal">
           <Checkbox
-            checked={form.isCurrentlySudying}
+            checked={form.isCurrentlyStudying}
             onCheckedChange={(value) =>
-              setForm({ ...form, isCurrentJob: value })
+              setForm({ ...form, isCurrentlyStudying: value })
             }
           />
           <Label>Currently studying</Label>

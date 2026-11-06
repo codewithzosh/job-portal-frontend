@@ -1,5 +1,4 @@
 import { FileText } from "lucide-react";
-import React from "react";
 import ApplicationStateCard from "./ApplicationStateCard";
 import { Briefcase } from "lucide-react";
 import { TrendingUp } from "lucide-react";
@@ -16,7 +15,7 @@ import { useState } from "react";
 import ApplicationCard from "./ApplicationCard";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
-import { fetchMyApplications, withdrawApplication } from "../../../reduxt-store/application/applicationThunk";
+import { fetchMyApplications } from "../../../reduxt-store/application/applicationThunk";
 import { useSelector } from "react-redux";
 
 const Application = () => {
@@ -32,7 +31,7 @@ const Application = () => {
 
   useEffect(() => {
     dispatch(fetchMyApplications());
-  }, []);
+  }, [dispatch]);
 
 
  

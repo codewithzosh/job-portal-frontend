@@ -1,4 +1,3 @@
-import React from 'react'
 
 const SatateCard = ({ label, value, icon: Icon, color }) => {
   return (

@@ -174,8 +174,6 @@ const resumeSlice = createSlice({
         s.actionError = payload;
       });
 
-    const resume1 = {};
-
     builder
       .addCase(updatePersonalInfo.pending, (s) => {
         s.isActionLoading = true;

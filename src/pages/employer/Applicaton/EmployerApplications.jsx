@@ -3,8 +3,6 @@ import SatateCard from "./SatateCard";
 import { Users } from "lucide-react";
 import { useMemo } from "react";
 
-import { Search } from "lucide-react";
-import { Input } from "../../../components/ui/input";
 import {
   Select,
   SelectContent,
@@ -16,14 +14,12 @@ import { Filter } from "lucide-react";
 
 import { Sparkles } from "lucide-react";
 import { Star } from "lucide-react";
-import { Eye } from "lucide-react";
 import { cn } from "../../../lib/utils";
 import ApplicationTable from "./ApplicationTable";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import {
   fetchCompanyApplications,
-  toggleStar,
 } from "../../../reduxt-store/application/applicationThunk";
 import { useState } from "react";
 import { useSelector } from "react-redux";
@@ -55,7 +51,7 @@ const EmployerApplications = () => {
   const [jobFilter, setJobFilter] = useState("all");
   const [statusFilter, setStatusFilter] = React.useState("ALL");
   const [starredOnly, setStarredOnly] = React.useState(false);
-  const [unreadOnly, setUnreadOnly] = React.useState(false);
+  const [unreadOnly] = React.useState(false);
   const [aiFilter, setAiFilter] = useState("ALL");
   const [sortBy, setSortBy] = useState("DEFAULT");
   const dispatch = useDispatch();
@@ -81,11 +77,11 @@ const EmployerApplications = () => {
     if (myCompany) {
       dispatch(fetchMyJobs(myCompany?.id));
     }
-  }, [myCompany]);
+  }, [dispatch, myCompany]);
 
   useEffect(() => {
     dispatch(fetchMyCompany());
-  }, []);
+  }, [dispatch]);
   useEffect(() => {
     const filters = {};
     if (jobFilter) filters.jobId = jobFilter;
@@ -98,7 +94,7 @@ const EmployerApplications = () => {
     console.log("filters ----- ", filters);
 
     dispatch(fetchCompanyApplications(filters));
-  }, [jobFilter, statusFilter, starredOnly, unreadOnly, aiFilter, setSortBy]);
+  }, [dispatch, jobFilter, statusFilter, starredOnly, unreadOnly, aiFilter, sortBy]);
 
   console.log("status filter", statusFilter);
 

@@ -1,7 +1,6 @@
 import { Camera } from "lucide-react";
 import { ImagePlus } from "lucide-react";
 import { Loader2 } from "lucide-react";
-import React from "react";
 import { useRef } from "react";
 
 const AvatarUpload = ({ user, uploading, onFileSelect }) => {

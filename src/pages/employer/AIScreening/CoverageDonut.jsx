@@ -1,4 +1,3 @@
-import React from "react";
 import { Cell, Pie, PieChart } from "recharts";
 
 const CoverageDonut = ({ screened, total, size = 120, stroke = 12 }) => {

@@ -1,4 +1,3 @@
-import React from "react";
 import { Card, CardContent } from "../../../components/ui/card";
 import { CheckCircle2 } from "lucide-react";
 import { Button } from "../../../components/ui/button";
@@ -16,7 +15,6 @@ import { Trash2 } from "lucide-react";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { fetchJobById } from "../../../reduxt-store/job/jobThunk";
-import { useSelector } from "react-redux";
 import { unsaveJob } from "../../../reduxt-store/saveJobs/saveJobThunk";
 import { useState } from "react";
 
@@ -25,19 +23,26 @@ const SavedJobCard = ({ savedJob }) => {
 
   const dispatch = useDispatch();
 
-  const fetchJob = async (jobId) => {
-    const result=await dispatch(fetchJobById(jobId));
-    const job= result.payload
-    setJob(job)
-  };
-
   useEffect(() => {
     const jobId = savedJob?.jobId;
+    if (!jobId) return;
 
-    if (jobId) {
-      fetchJob(jobId)
-    }
-  }, [savedJob]);
+    let ignore = false;
+
+    const fetchJob = async () => {
+      const result = await dispatch(fetchJobById(jobId));
+
+      if (!ignore && result.meta.requestStatus === "fulfilled") {
+        setJob(result.payload);
+      }
+    };
+
+    fetchJob();
+
+    return () => {
+      ignore = true;
+    };
+  }, [dispatch, savedJob?.jobId]);
 
   console.log("job ---------- ", job);
 

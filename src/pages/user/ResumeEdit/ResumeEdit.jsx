@@ -1,14 +1,11 @@
 import { FileText } from "lucide-react";
 import { Briefcase } from "lucide-react";
 import { Code2 } from "lucide-react";
-import { BadgeCheck } from "lucide-react";
 import { Languages } from "lucide-react";
 import { Settings } from "lucide-react";
-import { Award } from "lucide-react";
 import { FolderGit2 } from "lucide-react";
 import { GraduationCap } from "lucide-react";
 import { User } from "lucide-react";
-import React from "react";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import {
@@ -24,9 +21,6 @@ import WorkExperienceSection from "./WorkExperienceSection";
 import EducationSection from "./EducationSection";
 import SkillsSection from "./SkillsSection";
 import ProjectSection from "./ProjectSection";
-import { CertificationsSection } from "./CertificationsSection";
-import AwardsSection from "./AwardsSection";
-import { LanguagesIcon } from "lucide-react";
 import ResumeSettingsSection from "./ResumeSettingsSection";
 import LanguagesSection from "./LanguagesSection";
 import { useSelector } from "react-redux";
@@ -64,11 +58,9 @@ const ResumeEdit = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if(id){
-      dispatch(fetchResumeById(id));
-    }
-    
-  }, [id]);
+    if (!id) return;
+    dispatch(fetchResumeById(id));
+  }, [dispatch, id]);
 
   console.log("resume id", id);
   return (

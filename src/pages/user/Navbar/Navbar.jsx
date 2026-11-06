@@ -1,6 +1,5 @@
 import { Target } from "lucide-react";
 import { Briefcase } from "lucide-react";
-import React from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import {
   DropdownMenu,
@@ -21,7 +20,6 @@ import { User } from "lucide-react";
 import { FileText } from "lucide-react";
 import { Bookmark } from "lucide-react";
 import { ScrollText } from "lucide-react";
-import { Settings } from "lucide-react";
 import { LogOut } from "lucide-react";
 import { useSelector } from "react-redux";
 import { logout } from "../../../reduxt-store/user/userSlice";

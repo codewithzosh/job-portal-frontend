@@ -1,4 +1,3 @@
-import React from 'react'
 import AiScoreCircle from '../Applicaton/AiScoreCircle'
 import { ArrowRight } from 'lucide-react'
 

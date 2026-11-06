@@ -1,4 +1,3 @@
-import React from 'react'
 import { Label } from '../../../components/ui/label'
 
 const JobField = ({label,required,children,hint,action}) => {

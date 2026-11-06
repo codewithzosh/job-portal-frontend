@@ -1,4 +1,3 @@
-import React from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { SparkleIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -33,7 +32,7 @@ const CoverLetterEditor = ({ coverLetter, setCoverLetter, selectedResume }) => {
     if (selectedResume) {
       dispatch(fetchResumeById(selectedResume));
     }
-  }, [selectedResume]);
+  }, [selectedResume, dispatch]);
 
   console.log("resume", currentResume);
 

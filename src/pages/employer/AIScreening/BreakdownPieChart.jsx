@@ -1,4 +1,3 @@
-import React from "react";
 import { STATUS_CFG, STATUS_ORDER } from "./config";
 import { Cell, Label, Pie, PieChart, Tooltip } from "recharts";
 

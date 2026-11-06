@@ -1,5 +1,4 @@
 import { FileText } from "lucide-react";
-import React from "react";
 import { Button } from "../../../components/ui/button";
 import { Plus } from "lucide-react";
 import { Star } from "lucide-react";
@@ -10,7 +9,7 @@ import CreateResumeDialog from "./CreateResumeDialog";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
-import { fetchMyResumes, setDefaultResume } from "../../../reduxt-store/resume/resumeThunk";
+import { fetchMyResumes } from "../../../reduxt-store/resume/resumeThunk";
 
 const Resumes = () => {
   const [showCreate, setShowCreate] = useState(false);
@@ -20,7 +19,7 @@ const Resumes = () => {
 
   useEffect(() => {
     dispatch(fetchMyResumes());
-  }, []);
+  }, [dispatch]);
 
   const defaultResume=resumes.find((r)=>r.isDefault)
   

@@ -1,5 +1,3 @@
-import React from "react";
-
 import CopyFromMenu from "./shared/CopyFromMenu";
 import { resumes } from "../Resumes/resumeData";
 import AddButton from "./shared/AddButton";
@@ -14,7 +12,6 @@ import { Textarea } from "../../../components/ui/textarea";
 
 import DeleteConfirm from "./shared/DeleteConfirm";
 
-import { certifications } from "./shared/certificationData";
 import { awards } from "./shared/award";
 
 const awardData = { title: "", issuedBy: "", awardDate: "", description: "" };

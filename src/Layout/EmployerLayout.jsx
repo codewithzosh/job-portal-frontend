@@ -1,17 +1,11 @@
-import React from 'react'
 import { Outlet } from "react-router-dom"
 import Sidebar from './Sidebar'
 import { LayoutDashboard } from 'lucide-react'
 import { Briefcase } from 'lucide-react'
 import { PlusCircle } from 'lucide-react'
 import { FileText } from 'lucide-react'
-import { Users } from 'lucide-react'
 import { BrainCircuit } from 'lucide-react'
-import { MessageSquare } from 'lucide-react'
 import { Building2 } from 'lucide-react'
-import { CreditCard } from 'lucide-react'
-import { Settings } from 'lucide-react'
-
 
 const navigation = [
   {

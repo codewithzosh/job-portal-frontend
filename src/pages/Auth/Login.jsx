@@ -1,4 +1,3 @@
-import React from "react";
 import AuthLaout from "./AuthLaout";
 import { Label } from "../../components/ui/label";
 import { Mail } from "lucide-react";
@@ -15,7 +14,6 @@ import { loginUser } from "../../reduxt-store/user/userThunk";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { getRoleBasedRedirect } from "../../utils/roleRedirect";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -42,12 +40,9 @@ const Login = () => {
   useEffect(() => {
     // console.log("")
     if (isAuthenticated && user) {
-      
       navigate("/");
-
-     
     }
-  }, [isAuthenticated, user]);
+  }, [isAuthenticated, user,navigate]);
   return (
     <AuthLaout
       title={"Welcome back"}

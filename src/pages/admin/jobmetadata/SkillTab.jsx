@@ -1,5 +1,4 @@
 import { Search } from "lucide-react";
-import React from "react";
 import { Input } from "../../../components/ui/input";
 import { useState } from "react";
 import { Button } from "../../../components/ui/button";
@@ -12,7 +11,6 @@ import {
   TableHeader,
   TableRow,
 } from "../../../components/ui/table";
-import { ChevronRight } from "lucide-react";
 
 import { CheckCircle } from "lucide-react";
 import { Badge } from "../../../components/ui/badge";

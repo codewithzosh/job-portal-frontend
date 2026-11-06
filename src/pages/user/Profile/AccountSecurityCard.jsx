@@ -1,4 +1,3 @@
-import React from "react";
 import {
   Card,
   CardContent,
@@ -7,7 +6,6 @@ import {
 } from "@/components/ui/card";
 import { User } from "lucide-react";
 
-import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
 const AccountSecurityCard = ({ user }) => {

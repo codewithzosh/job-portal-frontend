@@ -1,7 +1,4 @@
-import React from 'react'
-import { Label } from '@/components/ui/label'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { User } from 'lucide-react'
 import { Clock } from 'lucide-react'
 import { CalendarDays } from 'lucide-react'
 

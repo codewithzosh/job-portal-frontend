@@ -35,7 +35,7 @@ const ApplyJob = () => {
         dispatch(fetchJobById(id))
       }
   
-    },[id])
+    },[id, dispatch])
 
   const renderStep = () => {
     switch (currentStep) {

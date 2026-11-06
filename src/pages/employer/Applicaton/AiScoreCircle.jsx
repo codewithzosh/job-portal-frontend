@@ -1,5 +1,3 @@
-import React from "react";
-
 const AiScoreCircle = ({ score, size = 44, stroke = 4 }) => {
   const r = (size - stroke) / 2;
   const circ = 2 * Math.PI * r;

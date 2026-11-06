@@ -1,4 +1,3 @@
-import React from "react";
 import { Card, CardContent } from "../../../components/ui/card";
 import { CheckCircle2 } from "lucide-react";
 
@@ -8,13 +7,12 @@ import { DollarSign } from "lucide-react";
 import { Clock } from "lucide-react";
 
 import { Separator } from "../../../components/ui/separator";
-import { Users } from "lucide-react";
 import { Button } from "../../../components/ui/button";
 import { ExternalLink } from "lucide-react";
 import { withdrawApplication } from "../../../reduxt-store/application/applicationThunk";
 import { useDispatch } from "react-redux";
 
-export const PIPELINE = [
+const PIPELINE = [
   "PENDING",
   "REVIEWING",
   "SHORTLISTED",

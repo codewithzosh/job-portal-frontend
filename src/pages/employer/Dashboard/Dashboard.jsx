@@ -1,5 +1,3 @@
-import React from "react";
-import { jobs } from "../../user/jobs/dummyJobs";
 import { Briefcase } from "lucide-react";
 import { TrendingUp } from "lucide-react";
 import { FileText } from "lucide-react";
@@ -55,13 +53,13 @@ const { applications } = useSelector((store) => store.application);
 
     useEffect(() => {
       dispatch(fetchMyCompany());
-    }, []);
+    }, [dispatch]);
 
       useEffect(() => {
       if (myCompany) {
         dispatch(fetchMyJobs(myCompany?.id));
       }
-    }, [myCompany]);
+    }, [myCompany, dispatch]);
     
   return (
     <div className="p-6 space-y-6">

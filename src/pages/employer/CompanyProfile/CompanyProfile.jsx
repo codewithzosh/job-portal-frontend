@@ -1,4 +1,3 @@
-import React from "react";
 import ProfileHeader from "./ProfileHeader";
 import CompanyDetails from "./CompanyDetails";
 import { useDispatch } from "react-redux";
@@ -24,7 +23,7 @@ const CompanyProfile = () => {
 
   useEffect(() => {
     dispatch(fetchMyCompany());
-  }, []);
+  }, [dispatch]);
 
   if (!myCompany) {
     return (

@@ -1,4 +1,3 @@
-import React from 'react'
 import {
   Dialog,
   DialogContent,
@@ -6,7 +5,6 @@ import {
   DialogTitle,
 } from "../../../components/ui/dialog";
 import { useState } from "react";
-import { useEffect } from "react";
 import { Label } from "../../../components/ui/label";
 import { Input } from "../../../components/ui/input";
 
@@ -14,18 +12,26 @@ import { Button } from "../../../components/ui/button";
 import { useDispatch } from 'react-redux';
 import { createTag, updateTag } from '../../../reduxt-store/jobMeta/jobMetaThunk';
 
-const TagFormDialog = ({
+const TagFormDialog = (props) => {
+  return props.open ? (
+    <TagFormDialogContent
+      key={props.initialData?.id ?? "new"}
+      {...props}
+    />
+  ) : null;
+};
+
+const TagFormDialogContent = ({
       isEdit,
   open,
   onClose,
-  onSubmit,
   initialData,
 }) => {
   const dispatch=useDispatch()
 
      const [form, setForm] = useState({
-        name: "",
-        category: "",
+        name: initialData?.name ?? "",
+        category: initialData?.category ?? "",
       });
     
       const handleSubmit = (e) => {
@@ -40,16 +46,6 @@ const TagFormDialog = ({
         console.log("form data", form);
       };
     
-      useEffect(() => {
-        if (open) {
-          setForm({
-            name: initialData?.name ?? "",
-            category: initialData?.category ?? ""
-       
-          });
-        }
-        console.log("intialdata ",initialData?.category)
-      }, [open, initialData]);
   return (
     <Dialog open={open} onOpenChange={(o) => !o && onClose()}>
       <DialogContent>

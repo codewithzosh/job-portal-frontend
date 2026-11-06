@@ -1,5 +1,4 @@
 import { BookMarked } from "lucide-react";
-import React from "react";
 import { Briefcase } from "lucide-react";
 
 import SavedJobCard from "./SavedJobCard";
@@ -10,13 +9,12 @@ import { fetchMySavedJobs } from "../../../reduxt-store/saveJobs/saveJobThunk";
 import { useSelector } from "react-redux";
 
 const SavedJobs = () => {
-  const dispatch=useDispatch()
-  const {savedJobs}=useSelector(store=>store.savedJob)
+  const dispatch = useDispatch();
+  const { savedJobs } = useSelector((store) => store.savedJob);
 
-  useEffect(()=>{
-dispatch(fetchMySavedJobs())
-  },[])
-
+  useEffect(() => {
+    dispatch(fetchMySavedJobs());
+  }, [dispatch]);
 
   return (
     <div className="max-w-5xl min-w-5xl max-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -26,7 +24,11 @@ dispatch(fetchMySavedJobs())
             <BookMarked className="h-6 w-6 text-primary" />
             Saved Jobs
           </h1>
-         {savedJobs.length>0 && <p className="text-slate-500 text-sm mt-1">{savedJobs.length} Job Saved</p>}
+          {savedJobs.length > 0 && (
+            <p className="text-slate-500 text-sm mt-1">
+              {savedJobs.length} Job Saved
+            </p>
+          )}
         </div>
         <div>
           <Button variant="outline" className={"py-5"}>
@@ -39,7 +41,9 @@ dispatch(fetchMySavedJobs())
       {/* job list */}
 
       <div className="space-y-4">
-        {savedJobs.map((job)=><SavedJobCard key={job.id} savedJob={job}/>)}
+        {savedJobs.map((job) => (
+          <SavedJobCard key={job.id} savedJob={job} />
+        ))}
       </div>
     </div>
   );

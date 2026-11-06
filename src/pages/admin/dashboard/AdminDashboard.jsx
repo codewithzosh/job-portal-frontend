@@ -2,7 +2,6 @@ import { Briefcase } from "lucide-react";
 import { FileText } from "lucide-react";
 import { Building2 } from "lucide-react";
 import { Users } from "lucide-react";
-import React from "react";
 import StatsCard from "./StatsCard";
 import UserTable from "../users/UserTable";
 import { useSelector } from "react-redux";
@@ -56,7 +55,7 @@ const AdminDashboard = () => {
 
  useEffect(() => {
     dispatch(fetchAllUsers());
-  }, []);
+  }, [dispatch]);
 
   return (
     <div className="space-y-6">

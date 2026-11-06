@@ -1,4 +1,3 @@
-import React from "react";
 import { Button } from "../../../components/ui/button";
 import { ArrowLeft } from "lucide-react";
 import {
@@ -40,7 +39,7 @@ const JobDetails = () => {
       dispatch(fetchJobById(id))
     }
 
-  },[id])
+  },[id, dispatch])
   
 if(job==null){
   return <div className="flex items-center justify-between min h-screen">

@@ -1,4 +1,3 @@
-import React from 'react'
 import { Outlet } from 'react-router-dom'
 import AdminSidebar from '../../sidebar/AdminSidebar'
 import { LayoutDashboard } from 'lucide-react'

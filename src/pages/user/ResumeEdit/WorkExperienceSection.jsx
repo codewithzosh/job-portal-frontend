@@ -1,4 +1,3 @@
-import React from "react";
 import CopyFromMenu from "./shared/CopyFromMenu";
 import { resumes } from "../Resumes/resumeData";
 import AddButton from "./shared/AddButton";
@@ -18,12 +17,10 @@ import DeleteConfirm from "./shared/DeleteConfirm";
 import { useDispatch } from "react-redux";
 import {
   addWorkExperience,
-  updateEducation,
   updateWorkExperience,
 } from "../../../reduxt-store/resume/resumeThunk";
-import { useEffect } from "react";
 
-export const JOB_TYPES = [
+const JOB_TYPES = [
   "FULL_TIME",
   "PART_TIME",
   "CONTRACT",
@@ -54,6 +51,7 @@ const WorkExperienceSection = ({ resumeId, resume }) => {
 
   const openEdit = (item) => {
     setEdit(item);
+    setForm(item);
     setOpen(true);
     console.log("item",item)
   };
@@ -87,12 +85,6 @@ const WorkExperienceSection = ({ resumeId, resume }) => {
   const handleDelete = () => {
     console.log("deleting", delItem);
   };
-
-  useEffect(() => {
-    if (edit) {
-      setForm(edit);
-    }
-  }, [edit]);
 
   console.log("edit",edit)
   return (

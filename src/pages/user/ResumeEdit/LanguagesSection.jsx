@@ -1,5 +1,3 @@
-import React from "react";
-
 import CopyFromMenu from "./shared/CopyFromMenu";
 import { resumes } from "../Resumes/resumeData";
 import AddButton from "./shared/AddButton";
@@ -19,7 +17,6 @@ import {
   deleteLanguage,
   updateLanguage,
 } from "../../../reduxt-store/resume/resumeThunk";
-import { useEffect } from "react";
 
 const languageData = {
   languageName: "",
@@ -36,6 +33,7 @@ const LanguagesSection = ({ resumeId, resume }) => {
 
   const openEdit = (item) => {
     setEdit(item);
+    setForm(item);
     setOpen(true);
   };
 
@@ -68,11 +66,6 @@ const LanguagesSection = ({ resumeId, resume }) => {
     NATIVE: "bg-green-50 text-green-700",
   };
 
-  useEffect(() => {
-    if (edit) {
-      setForm(edit);
-    }
-  }, [edit]);
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">

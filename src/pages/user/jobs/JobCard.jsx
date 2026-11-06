@@ -1,4 +1,3 @@
-import React from "react";
 import { Card, CardContent } from "../../../components/ui/card";
 import { CheckCircle2 } from "lucide-react";
 import { Bookmark } from "lucide-react";
@@ -10,7 +9,7 @@ import { Clock } from "lucide-react";
 import { Badge } from "../../../components/ui/badge";
 import { Separator } from "../../../components/ui/separator";
 import { Users } from "lucide-react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { saveJob } from "../../../reduxt-store/saveJobs/saveJobThunk";
 

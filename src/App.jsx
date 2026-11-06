@@ -45,7 +45,7 @@ function App() {
       // If the access token exists, you can dispatch an action to fetch the current user
       dispatch(fetchCurrentUser());
     }
-  }, []);
+  }, [dispatch]);
 
   console.log("isAuthenticated ", isAuthenticated, user);
   return (

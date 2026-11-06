@@ -1,6 +1,5 @@
 import { Loader2 } from "lucide-react";
 import { Sparkles } from "lucide-react";
-import React from "react";
 
 const AiButton = ({ label, onClick, disabled,isLoading }) => {
   return (
