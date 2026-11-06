@@ -15,7 +15,6 @@ import {
 } from "./jobMetaThunk";
 import { replaceInList } from "../utils/replaceInList";
 
-
 const initialState = {
   categories: [],
   skills: [],

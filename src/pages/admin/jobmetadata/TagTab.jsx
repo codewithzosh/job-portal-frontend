@@ -77,7 +77,6 @@ const TagTab = ({ tags }) => {
         open={formOpen}
         onClose={() => {
           setFormOpen(false);
-          
         }}
         initialData={editTarget}
         isEdit={!!editTarget}

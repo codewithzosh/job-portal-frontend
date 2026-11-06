@@ -1,21 +1,19 @@
-import { Sparkles } from 'lucide-react';
-import { ScrollArea } from '../../components/ui/scroll-area';
-import { Link, NavLink, useNavigate } from 'react-router-dom';
-import { cn } from '../../lib/utils';
-import { LogOut } from 'lucide-react';
-import { useDispatch } from 'react-redux';
-import { logout } from '../../reduxt-store/user/userSlice';
+import { Sparkles } from "lucide-react";
+import { ScrollArea } from "../../components/ui/scroll-area";
+import { Link, NavLink, useNavigate } from "react-router-dom";
+import { cn } from "../../lib/utils";
+import { LogOut } from "lucide-react";
+import { useDispatch } from "react-redux";
+import { logout } from "../../reduxt-store/user/userSlice";
 
-const AdminSidebar = ({navigation}) => {
+const AdminSidebar = ({ navigation }) => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  const dispatch=useDispatch()
-  const navigate=useNavigate()
-
-  const handleLogout=()=>{
-    
-    dispatch(logout())
-    navigate("/")
-  }
+  const handleLogout = () => {
+    dispatch(logout());
+    navigate("/");
+  };
   return (
     <div className="relative flex flex-col bg-slate-950 transition-all duration-300 shrink-0 w-64">
       {/* Brand Logo */}
@@ -49,15 +47,16 @@ const AdminSidebar = ({navigation}) => {
                   const Icon = item.icon;
                   return (
                     <NavLink
-                    key={item.name}
-                    to={item.href}
-                    end={item.href === "/employer/jobs"}
-                    title={item.name}
+                      key={item.name}
+                      to={item.href}
+                      end={item.href === "/employer/jobs"}
+                      title={item.name}
                       className={({ isActive }) =>
                         cn(
                           "flex items-center gap-3 rounded-lg py-2.5 text-sm font-medium transition-all duration-150 px-3",
-                          isActive?"bg-primary/90 text-white shadow-sm shadow-primary/30":
-                          "text-slate-400 hover:text-white hover:bg-white/5"
+                          isActive
+                            ? "bg-primary/90 text-white shadow-sm shadow-primary/30"
+                            : "text-slate-400 hover:text-white hover:bg-white/5",
                         )
                       }
                     >
@@ -66,38 +65,32 @@ const AdminSidebar = ({navigation}) => {
                     </NavLink>
                   );
                 })}
-
-                
               </div>
             </div>
           ))}
 
           <div>
             <h3 className="mb-1.5 px-3 text-[10px] font-bold uppercase tracking-widest text-slate-600">
-                Logout
-              </h3>
-              <NavLink
+              Logout
+            </h3>
+            <NavLink
               onClick={handleLogout}
-                   
-                    
-                  
-                    title={"Logout"}
-                      className={
-                        cn(
-                          "flex items-center gap-3 rounded-lg py-2.5 text-sm font-medium transition-all duration-150 px-3",
-                        
-                          "text-slate-400 hover:text-white hover:bg-white/5"
-                        )
-                      }
-                    >
-                      <LogOut />
-                      <span>Logout</span>
-                    </NavLink>
+
+              title={"Logout"}
+              className={cn(
+                "flex items-center gap-3 rounded-lg py-2.5 text-sm font-medium transition-all duration-150 px-3",
+
+                "text-slate-400 hover:text-white hover:bg-white/5",
+              )}
+            >
+              <LogOut />
+              <span>Logout</span>
+            </NavLink>
           </div>
         </nav>
       </ScrollArea>
     </div>
-  )
-}
+  );
+};
 
-export default AdminSidebar
+export default AdminSidebar;

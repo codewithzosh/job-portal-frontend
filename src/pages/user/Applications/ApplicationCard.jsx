@@ -112,9 +112,7 @@ const ApplicationCard = ({ app }) => {
 
               <div>
                 <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-3 text-xs text-muted-foreground">
-                  
-                  </div>
+                  <div className="flex items-center gap-3 text-xs text-muted-foreground"></div>
 
                   <div>
                     <Button variant="ghost">
@@ -124,9 +122,9 @@ const ApplicationCard = ({ app }) => {
                       onClick={() => handleWithdrawalApplication(app.id)}
                       className={"text-red-400"}
                       variant="ghost"
-                      disabled={app?.status=="WITHDRAWN"}
+                      disabled={app?.status == "WITHDRAWN"}
                     >
-                      {app?.status=="WITHDRAWN"?"WITHDRAWN":"Withdraw"}
+                      {app?.status == "WITHDRAWN" ? "WITHDRAWN" : "Withdraw"}
                     </Button>
                   </div>
                 </div>

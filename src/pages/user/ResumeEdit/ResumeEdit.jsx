@@ -53,7 +53,7 @@ const SECTIONS = [
 const ResumeEdit = () => {
   const [activeSection, setActiveSection] = useState(SECTIONS[0]);
   const { id } = useParams();
-  const { currentResume:resume } = useSelector((store) => store.resume);
+  const { currentResume: resume } = useSelector((store) => store.resume);
 
   const dispatch = useDispatch();
 
@@ -148,8 +148,6 @@ const ResumeEdit = () => {
                 />
               )}
 
-            
-
               {activeSection.key === "languages" && (
                 <LanguagesSection
                   resumeId={id}
@@ -157,7 +155,6 @@ const ResumeEdit = () => {
                   otherResumes={resumes}
                 />
               )}
-              
 
               {activeSection.key === "settings" && (
                 <ResumeSettingsSection

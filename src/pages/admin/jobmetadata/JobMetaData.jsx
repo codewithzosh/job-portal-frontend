@@ -14,10 +14,14 @@ import TagTab from "./TagTab";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
-import { fetchCategories, fetchSkills, fetchTags } from "../../../reduxt-store/jobMeta/jobMetaThunk";
+import {
+  fetchCategories,
+  fetchSkills,
+  fetchTags,
+} from "../../../reduxt-store/jobMeta/jobMetaThunk";
 
 const JobMetaData = () => {
-  const { categories,skills,tags } = useSelector((state) => state.jobMeta);
+  const { categories, skills, tags } = useSelector((state) => state.jobMeta);
   const dispatch = useDispatch();
   const jobMetaData = [
     {
@@ -42,8 +46,8 @@ const JobMetaData = () => {
 
   useEffect(() => {
     dispatch(fetchCategories());
-    dispatch(fetchSkills())
-    dispatch(fetchTags())
+    dispatch(fetchSkills());
+    dispatch(fetchTags());
   }, [dispatch]);
 
   return (

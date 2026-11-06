@@ -53,14 +53,13 @@ const WorkExperienceSection = ({ resumeId, resume }) => {
     setEdit(item);
     setForm(item);
     setOpen(true);
-    console.log("item",item)
+    console.log("item", item);
   };
 
   const openAdd = () => {
-      setEdit(null)
+    setEdit(null);
     setOpen(true);
-    setForm(experienceData)
-  
+    setForm(experienceData);
   };
 
   const save = () => {
@@ -77,7 +76,7 @@ const WorkExperienceSection = ({ resumeId, resume }) => {
       : addWorkExperience({ resumeId, data: payload });
 
     dispatch(thunk);
-    setEdit(null)
+    setEdit(null);
     console.log("save work experience", form);
   };
   const f = (k) => (e) => setForm({ ...form, [k]: e.target.value });
@@ -86,7 +85,7 @@ const WorkExperienceSection = ({ resumeId, resume }) => {
     console.log("deleting", delItem);
   };
 
-  console.log("edit",edit)
+  console.log("edit", edit);
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">

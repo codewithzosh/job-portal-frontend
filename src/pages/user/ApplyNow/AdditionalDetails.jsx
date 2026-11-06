@@ -12,7 +12,6 @@ import { Button } from "../../../components/ui/button";
 import { Calendar } from "../../../components/ui/calendar";
 import { format } from "date-fns";
 
-
 const AdditionalDetails = ({
   expectedSalary,
   setExpectedSalary,
@@ -58,7 +57,7 @@ const AdditionalDetails = ({
             <Popover open={open} onOpenChange={setOpen}>
               <PopoverTrigger asChild>
                 <Button
-                variant="outline"
+                  variant="outline"
                   className={`
                     py-5
                   w-full justify-start text-left font-normal,

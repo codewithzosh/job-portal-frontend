@@ -42,7 +42,7 @@ const Login = () => {
     if (isAuthenticated && user) {
       navigate("/");
     }
-  }, [isAuthenticated, user,navigate]);
+  }, [isAuthenticated, user, navigate]);
   return (
     <AuthLaout
       title={"Welcome back"}

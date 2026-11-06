@@ -7,8 +7,13 @@ const AiScoreCircle = ({ score, size = 44, stroke = 4 }) => {
   return (
     <div className="relative " style={{ width: size, height: size }}>
       <svg width={size} height={size} className="-rotate-90">
-        <circle cx={size / 2} cy={size / 2} r={r} 
-        fill="none" stroke="#e2e8f0" strokeWidth={stroke}
+        <circle
+          cx={size / 2}
+          cy={size / 2}
+          r={r}
+          fill="none"
+          stroke="#e2e8f0"
+          strokeWidth={stroke}
         />
         <circle
           cx={size / 2}
@@ -23,7 +28,9 @@ const AiScoreCircle = ({ score, size = 44, stroke = 4 }) => {
         />
       </svg>
       <div className="absolute inset-0 flex items-center justify-center">
-        <span className="text-[10px] font-bold" style={{ color }}>{pct}%</span>
+        <span className="text-[10px] font-bold" style={{ color }}>
+          {pct}%
+        </span>
       </div>
     </div>
   );

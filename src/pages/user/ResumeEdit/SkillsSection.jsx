@@ -56,8 +56,8 @@ const SkillsSection = ({ resumeId, resume }) => {
 
   const openAdd = () => {
     setOpen(true);
-    setEdit(null)
-    setForm(skillsData)
+    setEdit(null);
+    setForm(skillsData);
   };
 
   const save = () => {
@@ -71,7 +71,7 @@ const SkillsSection = ({ resumeId, resume }) => {
   const f = (k) => (e) => setForm({ ...form, [k]: e.target.value });
 
   const handleDelete = () => {
-    dispatch(deleteSkill({resumeId,skillId:delItem.id}))
+    dispatch(deleteSkill({ resumeId, skillId: delItem.id }));
     console.log("deleting", delItem);
   };
 

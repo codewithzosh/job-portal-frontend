@@ -248,4 +248,4 @@ const resumeSlice = createSlice({
   },
 });
 
-export default resumeSlice.reducer
+export default resumeSlice.reducer;

@@ -301,9 +301,7 @@ const CreateJob = ({ isEdit = false }) => {
         .map((tag) => tag.id)
         .filter((id) => !f.tagIds.includes(id));
 
-      return newIds.length > 0
-        ? { ...f, tagIds: [...f.tagIds, ...newIds] }
-        : f;
+      return newIds.length > 0 ? { ...f, tagIds: [...f.tagIds, ...newIds] } : f;
     });
   };
 

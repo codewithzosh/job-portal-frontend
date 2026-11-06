@@ -49,11 +49,9 @@ const CategoryFormDialogContent = ({
   const handleSubmit = (e) => {
     e.preventDefault();
 
-      console.log("initial data handle submit", initialData)
+    console.log("initial data handle submit", initialData);
 
     if (initialData) {
-
-    
       dispatch(
         updateCategory({
           id: initialData.id,
@@ -62,13 +60,12 @@ const CategoryFormDialogContent = ({
       );
     } else {
       dispatch(createCategory(form));
-       
     }
 
     console.log("form data", form, isEdit);
   };
 
-  console.log("initial data ---- ",initialData)
+  console.log("initial data ---- ", initialData);
 
   return (
     <Dialog open={open} onOpenChange={(o) => !o && onClose()}>

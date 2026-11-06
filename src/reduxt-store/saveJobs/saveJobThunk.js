@@ -1,7 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import api from "../api";
 
-
 export const fetchMySavedJobs = createAsyncThunk(
   "savedJob/fetchMySavedJobs",
   async (_, { rejectWithValue }) => {
@@ -12,37 +11,39 @@ export const fetchMySavedJobs = createAsyncThunk(
     } catch (error) {
       console.log("Fetch job error:", error.response?.data);
       return rejectWithValue(
-
-        error.response?.data?.message || "Failed to fetch categories."
+        error.response?.data?.message || "Failed to fetch categories.",
       );
     }
-  }
+  },
 );
-
 
 export const saveJob = createAsyncThunk(
   "savedJob/save",
   async ({ jobId }, { rejectWithValue }) => {
     try {
-      const { data } = await api.post("/api/preferences/saved-jobs", {jobId})
-      console.log("saved job success ",data)
-      return data
+      const { data } = await api.post("/api/preferences/saved-jobs", { jobId });
+      console.log("saved job success ", data);
+      return data;
     } catch (err) {
-      console.log("error ",err)
-      return rejectWithValue(err.response?.data?.message || "Failed to save job")
+      console.log("error ", err);
+      return rejectWithValue(
+        err.response?.data?.message || "Failed to save job",
+      );
     }
-  }
-)
+  },
+);
 
 export const unsaveJob = createAsyncThunk(
   "savedJob/unsave",
   async (savedJobId, { rejectWithValue }) => {
     try {
-      await api.delete(`/api/preferences/saved-jobs/${savedJobId}`)
-      return savedJobId
+      await api.delete(`/api/preferences/saved-jobs/${savedJobId}`);
+      return savedJobId;
     } catch (err) {
-      console.log("error ",err)
-      return rejectWithValue(err.response?.data?.message || "Failed to remove saved job")
+      console.log("error ", err);
+      return rejectWithValue(
+        err.response?.data?.message || "Failed to remove saved job",
+      );
     }
-  }
-)
+  },
+);

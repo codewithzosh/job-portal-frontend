@@ -63,7 +63,7 @@ const CoverLetterEditor = ({ coverLetter, setCoverLetter, selectedResume }) => {
 
     try {
       const result = await dispatch(generateCoerLetter(payload)).unwrap();
-      console.log("result --- ",result)
+      console.log("result --- ", result);
       setCoverLetter(result.content);
     } catch (error) {
       console.log("error", error);

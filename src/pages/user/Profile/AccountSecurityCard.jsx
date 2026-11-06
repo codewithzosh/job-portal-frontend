@@ -1,9 +1,4 @@
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { User } from "lucide-react";
 
 import { Label } from "@/components/ui/label";
@@ -50,8 +45,6 @@ const AccountSecurityCard = ({ user }) => {
 
             <p className="text-sm text-slate-600 py-2">Email & Password</p>
           </div>
-
-      
 
           <div className="space-y-1.5">
             <Label className="text-xs font-medium text-slate-500 uppercase tracking-wide">

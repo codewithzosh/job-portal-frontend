@@ -18,9 +18,7 @@ import { cn } from "../../../lib/utils";
 import ApplicationTable from "./ApplicationTable";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
-import {
-  fetchCompanyApplications,
-} from "../../../reduxt-store/application/applicationThunk";
+import { fetchCompanyApplications } from "../../../reduxt-store/application/applicationThunk";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { fetchMyJobs } from "../../../reduxt-store/job/jobThunk";
@@ -94,7 +92,15 @@ const EmployerApplications = () => {
     console.log("filters ----- ", filters);
 
     dispatch(fetchCompanyApplications(filters));
-  }, [dispatch, jobFilter, statusFilter, starredOnly, unreadOnly, aiFilter, sortBy]);
+  }, [
+    dispatch,
+    jobFilter,
+    statusFilter,
+    starredOnly,
+    unreadOnly,
+    aiFilter,
+    sortBy,
+  ]);
 
   console.log("status filter", statusFilter);
 
@@ -237,12 +243,14 @@ const EmployerApplications = () => {
         />
       </section>
 
-     {statusDialog && <UpdateStatusDialog
-        open={statusDialog}
-        onClose={() => setStatusDialog(null)}
-        applicationId={statusDialog?.id}
-        currentStatus={statusDialog?.currentStatus}
-      />}
+      {statusDialog && (
+        <UpdateStatusDialog
+          open={statusDialog}
+          onClose={() => setStatusDialog(null)}
+          applicationId={statusDialog?.id}
+          currentStatus={statusDialog?.currentStatus}
+        />
+      )}
     </main>
   );
 };

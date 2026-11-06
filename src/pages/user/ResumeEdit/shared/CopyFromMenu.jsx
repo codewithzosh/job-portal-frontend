@@ -23,17 +23,17 @@ function CopyFromMenu({ resumes }) {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className={"w-60"}>
-        <DropdownMenuLabel className="text-xs text-slate-500 font-normal">Select a resume to copy</DropdownMenuLabel>
+        <DropdownMenuLabel className="text-xs text-slate-500 font-normal">
+          Select a resume to copy
+        </DropdownMenuLabel>
 
         <DropdownMenuSeparator />
-        {resumes.map(
-    (item)=> <DropdownMenuItem  className="cursor-pointer gap-2">
+        {resumes.map((item) => (
+          <DropdownMenuItem className="cursor-pointer gap-2">
             <FileText />
-            <span>
-                {item.title}
-            </span>
+            <span>{item.title}</span>
           </DropdownMenuItem>
-        )}
+        ))}
       </DropdownMenuContent>
     </DropdownMenu>
   );

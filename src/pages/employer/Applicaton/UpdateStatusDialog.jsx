@@ -35,18 +35,19 @@ const UpdateStatusDialog = ({
   applicationId,
   currentStatus,
 }) => {
-    const [status,setStatus]=useState(currentStatus || "")
-    const dispatch=useDispatch();
+  const [status, setStatus] = useState(currentStatus || "");
+  const dispatch = useDispatch();
 
-
-    const handleSubmit=()=>{
-        dispatch(updateApplicationStatus({
-            id:applicationId,
-            status,
-            note:"employer update status"
-        }))
-        onClose()
-    }
+  const handleSubmit = () => {
+    dispatch(
+      updateApplicationStatus({
+        id: applicationId,
+        status,
+        note: "employer update status",
+      }),
+    );
+    onClose();
+  };
   return (
     <Dialog open={open} onOpenChange={onClose}>
       <DialogContent>

@@ -12,8 +12,6 @@ import {
 } from "./jobThunk";
 import { replaceInList } from "../utils/replaceInList";
 
-
-
 const initialState = {
   jobs: [],
   jobLoading: false,
@@ -180,6 +178,5 @@ const jobSlice = createSlice({
       });
   },
 });
-
 
 export default jobSlice.reducer;

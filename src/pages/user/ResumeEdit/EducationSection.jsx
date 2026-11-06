@@ -16,7 +16,7 @@ import { useDispatch } from "react-redux";
 import {
   addEducation,
   deleteEducation,
-  updateEducation
+  updateEducation,
 } from "../../../reduxt-store/resume/resumeThunk";
 
 const educationData = {
@@ -70,7 +70,7 @@ const EducationSection = ({ resumeId, resume }) => {
   const f = (k) => (e) => setForm({ ...form, [k]: e.target.value });
 
   const handleDelete = () => {
-    dispatch(deleteEducation({resumeId,educationId:delItem.id}))
+    dispatch(deleteEducation({ resumeId, educationId: delItem.id }));
     console.log("deleting", delItem);
   };
 
@@ -96,7 +96,8 @@ const EducationSection = ({ resumeId, resume }) => {
             {item.fieldOfStudy && `. ${item.fieldOfStudy}`}
           </p>
           <p className="text-xs text-slate-600">
-            {item.startDate} - {item.isCurrentlyStudying ? "Present" : item.endDate}
+            {item.startDate} -{" "}
+            {item.isCurrentlyStudying ? "Present" : item.endDate}
             {item.grade && `. GPA: ${item.grade}`}
           </p>
         </SectionCard>
@@ -108,7 +109,7 @@ const EducationSection = ({ resumeId, resume }) => {
         onClose={() => {
           setOpen(false);
           setEdit(null);
-          setForm(educationData)
+          setForm(educationData);
         }}
         title={edit ? "Edit Education" : "Add Education"}
       >

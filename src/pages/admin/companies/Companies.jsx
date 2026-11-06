@@ -114,8 +114,8 @@ const Companies = () => {
           />
         ))}
       </section>
-      <CompanyFilter/>
-      <CompanyTable companies={companies}/>
+      <CompanyFilter />
+      <CompanyTable companies={companies} />
     </div>
   );
 };

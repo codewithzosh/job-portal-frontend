@@ -25,18 +25,18 @@ const MultiSelect = ({
   const visibleBadges = selectedOptions.slice(0, maxBadges);
   const hiddenCount = selectedOptions.length - maxBadges;
 
-  const toggle=(id)=>{
-    if(selectedSet.has(id)){
-      onChange(selectedIds.filter(sid=>sid!==id))
-    }else{
-      onChange([...selectedIds,id])
+  const toggle = (id) => {
+    if (selectedSet.has(id)) {
+      onChange(selectedIds.filter((sid) => sid !== id));
+    } else {
+      onChange([...selectedIds, id]);
     }
-  }
+  };
 
-  const remove=(e,id)=>{
+  const remove = (e, id) => {
     e.stopPropagation();
-    onChange(selectedIds.filter(sid=>sid!==id))
-  }
+    onChange(selectedIds.filter((sid) => sid !== id));
+  };
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -60,12 +60,12 @@ const MultiSelect = ({
               >
                 {o.name}
                 <span
-                onClick={(e)=>remove(e,o.id)}
+                  onClick={(e) => remove(e, o.id)}
                   role="button"
                   tabIndex={-1}
                   className="cursor-pointer hover:text-blue-950"
                 >
-                  <X className="w-3 h-3"/>
+                  <X className="w-3 h-3" />
                 </span>
               </Badge>
             ))}
@@ -90,14 +90,22 @@ const MultiSelect = ({
                   isSelected && "bg-blue-50",
                 )}
 
-                onClick={()=>toggle(o.id)}
+                onClick={() => toggle(o.id)}
               >
-                <div className={cn(
+                <div
+                  className={cn(
                     "flex h-4 w-4 shrink-0 items-center justify-center rounded border",
-                    isSelected ? "border-primary bg-primary" : "border-slate-300"
-                  )}>{isSelected && <Check className="h-2.5 w-2.5 text-white" />}</div>
+                    isSelected
+                      ? "border-primary bg-primary"
+                      : "border-slate-300",
+                  )}
+                >
+                  {isSelected && <Check className="h-2.5 w-2.5 text-white" />}
+                </div>
 
-                <span className={`${isSelected&&"font-medium text-primary"}`}>{o.name}</span>
+                <span className={`${isSelected && "font-medium text-primary"}`}>
+                  {o.name}
+                </span>
               </button>
             );
           })}

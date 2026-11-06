@@ -4,15 +4,14 @@ import { Trash2 } from "lucide-react";
 import { useDispatch } from "react-redux";
 import { deleteTag } from "../../../reduxt-store/jobMeta/jobMetaThunk";
 
-const TagPill = ({ tag, colorClass,onEdit }) => {
+const TagPill = ({ tag, colorClass, onEdit }) => {
+  const dispatch = useDispatch();
 
-  const dispatch=useDispatch()
+  const handleDelete = () => {
+    dispatch(deleteTag(tag.id));
+  };
 
-  const handleDelete=()=>{
-    dispatch(deleteTag(tag.id))
-  }
-
-  console.log("tag pill",tag)
+  console.log("tag pill", tag);
   return (
     <div
       className={cn(

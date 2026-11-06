@@ -21,8 +21,8 @@ const Resumes = () => {
     dispatch(fetchMyResumes());
   }, [dispatch]);
 
-  const defaultResume=resumes.find((r)=>r.isDefault)
-  
+  const defaultResume = resumes.find((r) => r.isDefault);
+
   return (
     <div className="min-h-screen bg-slate-50">
       <div className="w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -44,20 +44,24 @@ const Resumes = () => {
           </Button>
         </div>
 
-       {defaultResume && <div className="bg-yellow-50 border border-yellow-200 rounded-xl p-4 mb-6 flex items-center gap-3">
-          <Star className="h-5 w-5 text-yellow-500 fill-current shrink-0" />
-          <div>
-            <p className="text-sm font-semibold text-yellow-800">
-              Default Resume
-            </p>
-            <p className="text-xs text-yellow-700">
-              <span>
-                <span className="font-medium">{defaultResume.title + " "}</span>
-                will be used when you apply without choosing a version.
-              </span>
-            </p>
+        {defaultResume && (
+          <div className="bg-yellow-50 border border-yellow-200 rounded-xl p-4 mb-6 flex items-center gap-3">
+            <Star className="h-5 w-5 text-yellow-500 fill-current shrink-0" />
+            <div>
+              <p className="text-sm font-semibold text-yellow-800">
+                Default Resume
+              </p>
+              <p className="text-xs text-yellow-700">
+                <span>
+                  <span className="font-medium">
+                    {defaultResume.title + " "}
+                  </span>
+                  will be used when you apply without choosing a version.
+                </span>
+              </p>
+            </div>
           </div>
-        </div>}
+        )}
 
         {/* list of resume */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">

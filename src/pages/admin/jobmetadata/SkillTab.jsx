@@ -17,7 +17,13 @@ import { Badge } from "../../../components/ui/badge";
 import { cn } from "../../../lib/utils";
 import { useMemo } from "react";
 import SkillFormDialog from "./SkillFormDialog";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuTrigger } from "../../../components/ui/dropdown-menu";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "../../../components/ui/dropdown-menu";
 import { MoreHorizontal } from "lucide-react";
 import { Pencil } from "lucide-react";
 import { Trash2 } from "lucide-react";
@@ -41,7 +47,7 @@ const SkillTab = ({ skills }) => {
   const [catFilter, setCatFilter] = useState("all");
   const [formOpen, setFormOpen] = useState(false);
   const [editTarget, setEditTarget] = useState(null);
-  const dispatch=useDispatch()
+  const dispatch = useDispatch();
 
   const filtered = useMemo(() => {
     let list = [...skills];
@@ -59,17 +65,17 @@ const SkillTab = ({ skills }) => {
     return list;
   }, [skills, search, catFilter]);
 
-   const openEdit = (cat) => {
+  const openEdit = (cat) => {
     setEditTarget(cat);
     setFormOpen(true);
   };
 
-  const handleDelete=(skill)=>{
-    dispatch(deleteSkill(skill.id))
+  const handleDelete = (skill) => {
+    dispatch(deleteSkill(skill.id));
     // api call
-    console.log("deleted skill ",skill)
-    setFormOpen(false)
-  }
+    console.log("deleted skill ", skill);
+    setFormOpen(false);
+  };
 
   return (
     <div className="space-y-6">
@@ -170,7 +176,7 @@ const SkillTab = ({ skills }) => {
                     </Badge>
                   </TableCell>
 
-                    <TableCell>
+                  <TableCell>
                     <DropdownMenu>
                       <DropdownMenuTrigger asChild>
                         <Button variant="ghost">
@@ -183,7 +189,10 @@ const SkillTab = ({ skills }) => {
                             <Pencil className="h-3.5 w-3.5 mr-2" />
                             Edit
                           </DropdownMenuItem>
-                          <DropdownMenuItem onClick={()=>handleDelete(skill)} className="text-red-600 focus:text-red-600 focus:bg-red-50">
+                          <DropdownMenuItem
+                            onClick={() => handleDelete(skill)}
+                            className="text-red-600 focus:text-red-600 focus:bg-red-50"
+                          >
                             <Trash2 className="h-3.5 w-3.5 mr-2" /> Delete
                           </DropdownMenuItem>
                         </DropdownMenuGroup>
@@ -201,7 +210,6 @@ const SkillTab = ({ skills }) => {
         open={formOpen}
         onClose={() => {
           setFormOpen(false);
-          
         }}
         initialData={editTarget}
         isEdit={!!editTarget}

@@ -13,7 +13,6 @@ export const fetchJobs = createAsyncThunk(
         }
       }
 
-      
       const response = await api.get("/api/jobs", { params: clean });
       console.log("jobs ------- :", response.data);
       return response.data;

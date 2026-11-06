@@ -37,9 +37,9 @@ export const createResume = createAsyncThunk(
   "resume/createResume",
   async (payload, { rejectWithValue }) => {
     try {
-      const {data}= (await api.post("/api/resumes", payload));
-      console.log("resume created",data)
-      return data
+      const { data } = await api.post("/api/resumes", payload);
+      console.log("resume created", data);
+      return data;
     } catch (e) {
       return rejectWithValue(
         e.response?.data?.message || "Failed to create resume",
@@ -103,6 +103,23 @@ export const deleteResume = createAsyncThunk(
     } catch (e) {
       return rejectWithValue(
         e.response?.data?.message || "Failed to delete resume",
+      );
+    }
+  },
+);
+
+export const updateResumeTitle = createAsyncThunk(
+  "resume/updateResumeTitle",
+  async ({ resumeId, title }, { rejectWithValue }) => {
+    try {
+      return (
+        await api.patch(`/api/resumes/${resumeId}/title`, null, {
+          params: { title },
+        })
+      ).data;
+    } catch (e) {
+      return rejectWithValue(
+        e.response?.data?.message || "Failed to update resume title",
       );
     }
   },

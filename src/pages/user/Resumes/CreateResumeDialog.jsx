@@ -23,18 +23,20 @@ import { createResume } from "../../../reduxt-store/resume/resumeThunk";
 const CreateResumeDialog = ({ open, onClose }) => {
   const [title, setTitle] = useState("");
   const [isDefalut, setIsDefault] = useState();
-  const dispatch=useDispatch()
+  const dispatch = useDispatch();
 
   const handleClose = () => {
     onClose();
   };
   const handleSubmit = () => {
-    dispatch(createResume({
-      title,
-      isDefalut,
-      template: "PROFESSIONAL",
-      visibility: "PUBLIC",
-    }))
+    dispatch(
+      createResume({
+        title,
+        isDefalut,
+        template: "PROFESSIONAL",
+        visibility: "PUBLIC",
+      }),
+    );
     console.log("resume data", { title, isDefalut });
   };
   return (
@@ -73,11 +75,12 @@ const CreateResumeDialog = ({ open, onClose }) => {
           </div>
         </div>
         <DialogFooter>
-        <Button variant="outline" onClick={handleClose}>Cancel</Button>
-        <Button onClick={handleSubmit}>Create Resume</Button>
-      </DialogFooter>
+          <Button variant="outline" onClick={handleClose}>
+            Cancel
+          </Button>
+          <Button onClick={handleSubmit}>Create Resume</Button>
+        </DialogFooter>
       </DialogContent>
-      
     </Dialog>
   );
 };

@@ -15,9 +15,9 @@ import { useDispatch } from "react-redux";
 import { updatePersonalInfo } from "../../../reduxt-store/resume/resumeThunk";
 import { uploadToCloudinary } from "../../../utils/uploadToCloudinary";
 
-const PersonalInfoSection = ({resumeId,resume}) => {
-  const pi=resume?.personalInfo??{}
-  const dispatch=useDispatch()
+const PersonalInfoSection = ({ resumeId, resume }) => {
+  const pi = resume?.personalInfo ?? {};
+  const dispatch = useDispatch();
   const [draft, setDraft] = useState({});
   const form = {
     firstName: pi.firstName ?? "",
@@ -38,38 +38,32 @@ const PersonalInfoSection = ({resumeId,resume}) => {
   const fileInputRef = useRef(null);
 
   const handleImageChange = async (event) => {
-    const file = event.target.files?.[0]
+    const file = event.target.files?.[0];
 
-    if(!file){
-      console.log("file not selected!")
-      return
+    if (!file) {
+      console.log("file not selected!");
+      return;
     }
     try {
-      setIsUploadingImage(true)
-      const url=await uploadToCloudinary(file)
-      setDraft((prev)=>({...prev,profileImage:url}))
-      
-      
+      setIsUploadingImage(true);
+      const url = await uploadToCloudinary(file);
+      setDraft((prev) => ({ ...prev, profileImage: url }));
     } catch (error) {
-      console.log("image uploading error",error)
-    }finally{
-      setIsUploadingImage(false)
+      console.log("image uploading error", error);
+    } finally {
+      setIsUploadingImage(false);
     }
     console.log(event.target.value);
   };
-  const f = (k) => (e) => setDraft((prev) => ({ ...prev, [k]: e.target.value }));
+  const f = (k) => (e) =>
+    setDraft((prev) => ({ ...prev, [k]: e.target.value }));
 
+  const handleSave = () => {
+    dispatch(updatePersonalInfo({ resumeId, data: form }));
+    console.log("form ", form);
+  };
 
-  const handleSave=()=>{
-    dispatch(updatePersonalInfo({resumeId, data:form}))
-    console.log("form ",form)
-  }
-
-  console.log("current resume ------- ", resume)
-
-  
-
-
+  console.log("current resume ------- ", resume);
 
   return (
     <div className="space-y-4">
@@ -132,7 +126,7 @@ const PersonalInfoSection = ({resumeId,resume}) => {
         />
       </FRow>
 
-       <div className="grid grid-cols-2 gap-3">
+      <div className="grid grid-cols-2 gap-3">
         <FRow label="Email">
           <Input type="email" value={form.email} onChange={f("email")} />
         </FRow>
@@ -161,25 +155,21 @@ const PersonalInfoSection = ({resumeId,resume}) => {
       </p>
 
       <FRow label="LinkedIn URL">
-    
-          <Input
-            value={form.linkedinUrl}
-            onChange={f("linkedinUrl")}
-      
-            placeholder="https://linkedin.com/in/…"
-          />
-        
+        <Input
+          value={form.linkedinUrl}
+          onChange={f("linkedinUrl")}
+
+          placeholder="https://linkedin.com/in/…"
+        />
       </FRow>
 
       <FRow label="GitHub URL">
-    
-          <Input
-            value={form.githubUrl}
-            onChange={f("githubUrl")}
-      
-            placeholder="https://github.com/…"
-          />
-        
+        <Input
+          value={form.githubUrl}
+          onChange={f("githubUrl")}
+
+          placeholder="https://github.com/…"
+        />
       </FRow>
 
       <FRow label="Portfolio URL">
@@ -194,7 +184,7 @@ const PersonalInfoSection = ({resumeId,resume}) => {
         </div>
       </FRow>
 
-       <FRow label="Website URL">
+      <FRow label="Website URL">
         <div className="relative">
           <Globe className="absolute left-3 top-2.5 h-4 w-4 text-slate-400" />
           <Input
@@ -204,7 +194,9 @@ const PersonalInfoSection = ({resumeId,resume}) => {
           />
         </div>
       </FRow>
-      <Button onClick={handleSave} className={"w-full"}><Check/> Save Personal Info</Button>
+      <Button onClick={handleSave} className={"w-full"}>
+        <Check /> Save Personal Info
+      </Button>
     </div>
   );
 };

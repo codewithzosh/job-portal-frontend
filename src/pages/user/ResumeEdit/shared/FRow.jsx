@@ -1,14 +1,12 @@
-import { Label } from '../../../../components/ui/label'
+import { Label } from "../../../../components/ui/label";
 
-const FRow = ({label, children}) => {
+const FRow = ({ label, children }) => {
   return (
-    <div className='space-y-1'>
-        <Label className={"text-xs text-slate-500"}>
-            {label}
-        </Label>
-        {children}
+    <div className="space-y-1">
+      <Label className={"text-xs text-slate-500"}>{label}</Label>
+      {children}
     </div>
-  )
-}
+  );
+};
 
-export default FRow
+export default FRow;

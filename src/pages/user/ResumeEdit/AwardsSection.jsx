@@ -76,18 +76,14 @@ const AwardsSection = () => {
           />
         </FRow>
 
-        
         <div className="grid grid-cols-2 gap-3">
-          
           <FRow label="Issued By">
-          <Input
-           
-            value={form.issuedBy}
-            onChange={f("issuedBy")}
-            placeholder="zosh private limited..."
-          
-          />
-        </FRow>
+            <Input
+              value={form.issuedBy}
+              onChange={f("issuedBy")}
+              placeholder="zosh private limited..."
+            />
+          </FRow>
 
           <FRow label="Award Date *">
             <Input
@@ -96,10 +92,9 @@ const AwardsSection = () => {
               onChange={f("awardDate")}
             />
           </FRow>
-         
         </div>
 
-       <FRow label="Description">
+        <FRow label="Description">
           <Textarea
             value={form.description}
             onChange={f("description")}

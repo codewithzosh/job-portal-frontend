@@ -2,7 +2,7 @@ import { cn } from "../../lib/utils";
 import { Users } from "lucide-react";
 import { CheckCircle } from "lucide-react";
 
-const RoleButton = ({ setValue, selectedRole,name,description,role }) => {
+const RoleButton = ({ setValue, selectedRole, name, description, role }) => {
   return (
     <button
       type="button"
@@ -26,18 +26,18 @@ const RoleButton = ({ setValue, selectedRole,name,description,role }) => {
         <p
           className={cn(
             "text-sm font-semibold",
-            selectedRole === role
-              ? "text-primary"
-              : "text-slate-700",
+            selectedRole === role ? "text-primary" : "text-slate-700",
           )}
         >
           {name}
         </p>
         <p>{description}b</p>
       </div>
-     {selectedRole==role && <div className="absolute top-3 right-3 w-5 h-5 rounded-full ">
-        <CheckCircle />
-      </div>}
+      {selectedRole == role && (
+        <div className="absolute top-3 right-3 w-5 h-5 rounded-full ">
+          <CheckCircle />
+        </div>
+      )}
     </button>
   );
 };

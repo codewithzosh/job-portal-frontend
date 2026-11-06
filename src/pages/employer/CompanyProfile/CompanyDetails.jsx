@@ -92,7 +92,7 @@ const CompanyDetails = () => {
               rows={4}
             />
           </div>
-          
+
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 ">
             <div className="space-y-1.5">
               <Label className="text-xs font-semibold text-slate-600">
@@ -128,13 +128,13 @@ const CompanyDetails = () => {
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 ">
             <div className="space-y-1.5">
               <Label className="text-xs font-semibold text-slate-600">
-                Company Website 
+                Company Website
               </Label>
               <Input
                 value={form.website ?? ""}
                 onChange={set("website")}
                 placeholder="Enter company website"
-          
+
                 className="border-slate-200"
               />
             </div>
@@ -166,11 +166,12 @@ const CompanyDetails = () => {
         </section>
 
         <div className="flex justify-end pt-2">
-
-            <Button className="gap-2 bg-primary hover:bg-primary/90" type="submit">
-                <Save className="h-4 w-4" /> Save Changes
-            </Button>
-
+          <Button
+            className="gap-2 bg-primary hover:bg-primary/90"
+            type="submit"
+          >
+            <Save className="h-4 w-4" /> Save Changes
+          </Button>
         </div>
       </form>
     </div>

@@ -9,43 +9,40 @@ import { Label } from "../../../components/ui/label";
 import { Input } from "../../../components/ui/input";
 
 import { Button } from "../../../components/ui/button";
-import { useDispatch } from 'react-redux';
-import { createTag, updateTag } from '../../../reduxt-store/jobMeta/jobMetaThunk';
+import { useDispatch } from "react-redux";
+import {
+  createTag,
+  updateTag,
+} from "../../../reduxt-store/jobMeta/jobMetaThunk";
 
 const TagFormDialog = (props) => {
   return props.open ? (
-    <TagFormDialogContent
-      key={props.initialData?.id ?? "new"}
-      {...props}
-    />
+    <TagFormDialogContent key={props.initialData?.id ?? "new"} {...props} />
   ) : null;
 };
 
-const TagFormDialogContent = ({
-      isEdit,
-  open,
-  onClose,
-  initialData,
-}) => {
-  const dispatch=useDispatch()
+const TagFormDialogContent = ({ isEdit, open, onClose, initialData }) => {
+  const dispatch = useDispatch();
 
-     const [form, setForm] = useState({
-        name: initialData?.name ?? "",
-        category: initialData?.category ?? "",
-      });
-    
-      const handleSubmit = (e) => {
-        e.preventDefault();
+  const [form, setForm] = useState({
+    name: initialData?.name ?? "",
+    category: initialData?.category ?? "",
+  });
 
-        if(initialData){
-          dispatch(updateTag({
-            id:initialData.id,
-            ...form
-          }))
-        }else dispatch(createTag(form))
-        console.log("form data", form);
-      };
-    
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    if (initialData) {
+      dispatch(
+        updateTag({
+          id: initialData.id,
+          ...form,
+        }),
+      );
+    } else dispatch(createTag(form));
+    console.log("form data", form);
+  };
+
   return (
     <Dialog open={open} onOpenChange={(o) => !o && onClose()}>
       <DialogContent>
@@ -66,10 +63,6 @@ const TagFormDialogContent = ({
             />
           </div>
 
-          
-
-         
-
           <div className="flex gap-2">
             <Button
               type="button"
@@ -86,7 +79,7 @@ const TagFormDialogContent = ({
         </form>
       </DialogContent>
     </Dialog>
-  )
-}
+  );
+};
 
-export default TagFormDialog
+export default TagFormDialog;

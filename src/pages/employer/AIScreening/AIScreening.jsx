@@ -90,7 +90,7 @@ const AIScreening = () => {
   useEffect(() => {
     dispatch(fetchMyCompany());
   }, [dispatch]);
-  
+
   useEffect(() => {
     const filters = {};
 

@@ -78,5 +78,4 @@ const adminUserSlice = createSlice({
   },
 });
 
-
-export default adminUserSlice.reducer
+export default adminUserSlice.reducer;

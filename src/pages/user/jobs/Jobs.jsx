@@ -26,7 +26,6 @@ import { enhanceSearch } from "../../../reduxt-store/ai/aiThunk";
 import { useMemo } from "react";
 
 const SORT_OPTIONS = [
-
   { value: "newest", label: "Newest first" },
   { value: "salary-high", label: "Salary: high → low" },
   { value: "salary-low", label: "Salary: low → high" },
@@ -126,7 +125,7 @@ const Jobs = () => {
 
   const sortedJobs = useMemo(() => {
     const sorted = [...jobs];
-   
+
     if (sortBy == "salary-high")
       return sorted.sort(
         (a, b) => Number(b.maxSalary ?? 0) - Number(a.maxSalary ?? 0),
@@ -138,7 +137,7 @@ const Jobs = () => {
     return sorted.sort(
       (a, b) => new Date(b.createdAt ?? 0) - new Date(a.createdAt ?? 0),
     );
-  }, [sortBy,jobs]);
+  }, [sortBy, jobs]);
 
   return (
     <div className="w-full">
